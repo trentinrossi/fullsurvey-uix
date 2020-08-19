@@ -2,14 +2,14 @@
   "menu": {
     "children": [
       {
-        "id": "res://senior.com.br/menu/custom/menu/seniorx-ui-starter",
+        "id": "res://senior.com.br/menu/custom/menu/fullsurvey-uix",
         "label": "Nome que vai aparecer no menu",
-        "labelI18n": "platform.backend.modulo_favoritos_seniorxuistarter",
+        "labelI18n": "platform.backend.modulo_favoritos_fullsurvey",
         "itemIcon": "fa-clock-o",
         "path": {
           "withCredentials": true,
           "category": "CurrentTab",
-          "menuId": "https://URL-HOST/seniorx-ui-starter"
+          "menuId": "https://URL-HOST/fullsurvey-uix"
         }
       }
     ]

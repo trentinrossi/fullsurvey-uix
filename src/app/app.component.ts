@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-  title = 'seniorx-ui-starter';
+  title = 'fullsurvey-uix';
   pageLoading: boolean;
   activeEmployees: any[];
 
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
       { label: 'Gestão de pessoas', disabled: true },
       { label: 'Analytics', disabled: true },
       { label: 'Meu analytics', disabled: true },
-      { label: 'SeniorX UI - Starter', disabled: true }
+      { label: 'Full Survey', disabled: true }
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
 

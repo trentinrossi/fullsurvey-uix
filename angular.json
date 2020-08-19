@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "seniorx-ui-starter": {
+    "fullsurvey-uix": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/seniorx-ui-starter",
+            "outputPath": "dist/fullsurvey-uix",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -94,21 +94,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "seniorx-ui-starter:build"
+            "browserTarget": "fullsurvey-uix:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "seniorx-ui-starter:build:production"
+              "browserTarget": "fullsurvey-uix:build:production"
             },
             "homologation": {
-              "browserTarget": "seniorx-ui-starter:build:homologation"
+              "browserTarget": "fullsurvey-uix:build:homologation"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "seniorx-ui-starter:build"
+            "browserTarget": "fullsurvey-uix:build"
           }
         },
         "test": {
@@ -138,16 +138,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "seniorx-ui-starter:serve"
+            "devServerTarget": "fullsurvey-uix:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "seniorx-ui-starter:serve:production"
+              "devServerTarget": "fullsurvey-uix:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "seniorx-ui-starter"
+  "defaultProject": "fullsurvey-uix"
 }
