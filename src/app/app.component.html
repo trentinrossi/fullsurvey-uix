@@ -1,11 +1,5 @@
-<s-analytics-header [employees]="activeEmployees"></s-analytics-header>
-<s-loading-state [loading]="pageLoading" [blockWindow]="true">
-  <div class="sds-container" id="page-content">
-    <h1 class="sds-page-title">
-      <span id="sds-page-title">Full Survey</span>
-    </h1>
-    <p-breadcrumb [model]="items" [home]="home">
-    </p-breadcrumb>
-    <router-outlet></router-outlet>
-  </div>
+<s-analytics-header headerTitle="Gestão de pesquisas"></s-analytics-header>
+
+<s-loading-state [loading]="false" [blockWindow]="true">
+  <router-outlet></router-outlet>
 </s-loading-state>

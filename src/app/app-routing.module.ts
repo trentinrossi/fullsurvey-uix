@@ -2,12 +2,22 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', loadChildren: './formulario/formulario.module#FormularioModule' }
-  // { path: 'cadastro', loadChildren: './rdv/rdv.module#RdvModule' }
+  {
+    path: 'insights',
+    loadChildren: () => import('./features/insights/insights.module').then(m => m.InsightsModule)
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule],
+  providers: []
 })
 export class AppRoutingModule { }

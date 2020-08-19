@@ -1,29 +1,23 @@
-import { registerLocaleData } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
 import ptBr from '@angular/common/locales/pt';
 
+import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { LOCALE_ID, NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastModule } from 'primeng/toast';
 
-import {
-  AnalyticsHeaderModule,
-  // BreadcrumbModule,
-  ErrorPageModule,
-  GoogleAnalyticsModule,
-  RedirectPageModule
-} from '@senior-gestao-pessoas/angular-components';
+import { AnalyticsHeaderModule } from '@senior-gestao-pessoas/angular-components';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { LoadingStateModule, LocaleModule } from '@seniorsistemas/angular-components';
-import { RestUrl, TranslationsModule } from '@seniorsistemas/platform-components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { default as fallback } from '../locale/pt-BR.json';
 import { TranslateModule } from '@ngx-translate/core';
+
 registerLocaleData(ptBr);
 
 @NgModule({
@@ -33,29 +27,22 @@ registerLocaleData(ptBr);
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     HttpClientModule,
+    AppRoutingModule,
     AnalyticsHeaderModule,
     LoadingStateModule,
     BreadcrumbModule,
     ToastModule,
 
-    TranslateModule.forRoot(),
-    TranslationsModule.forRoot([
-      {
-        domain: 'hcm',
-        service: 'vacancymanagement',
-        fallback
-      },
-      {
-        domain: 'platform',
-        service: 'filter_service',
-        fallback
-      }
-    ]),
-
+    TranslateModule.forRoot()
   ],
-  providers: [MessageService, { provide: LOCALE_ID, useValue: 'pt-BR' }],
+  providers: [
+    MessageService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: LocationStrategy, useClass: HashLocationStrategy
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

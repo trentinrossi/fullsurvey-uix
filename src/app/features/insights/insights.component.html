@@ -1,0 +1,54 @@
+<div class="sds-container" id="page-content">
+  <h1 class="sds-page-title">
+    <span id="sds-page-title">Assuntos</span>
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  </h1>
+
+  <p-panel>
+    <p-header>
+      Lista de assuntos cadastrados
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <div class="ui-lg-12 ui-md-12 ui-sm-12">
+          <div class="ui-g">
+            <p-table [value]="">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>{{ 'Nome' }}</th>
+                  <th width="150">
+                    <s-button [label]="'Adicionar'" priority="primary"></s-button>
+                  </th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-subject>
+                <tr>
+                  <td>
+                    {{ subject.name }}
+                  </td>
+                  <td>
+                    <s-button label="Ações" priority="default" [auxiliary]="true"></s-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <div class="ui-lg-12 error-container">
+              <!-- <s-empty-state *ngIf="true" [title]="'titulo'"
+                [primaryActionLabel]="'platform.ecm_ged.content_try_again'" (primaryAction)="refresh()"
+                [description]="'platform.ecm_ged.content_files_load_error'">
+              </s-empty-state> -->
+
+              <s-empty-state *ngIf="true" [title]="'Nenhum assunto cadastrado'"
+                [description]="'Clique no botão Adicionar para cadastrar um novo assuntos'">
+              </s-empty-state>
+
+              <s-loading-state [loading]="false"></s-loading-state>
+            </div>
+      </div>
+    </div>
+
+  </p-panel>
+</div>
