@@ -1,3 +1,6 @@
+import { ConfirmationService } from 'primeng/api';
+import { NotificationModule } from './shared/messages/notification.module';
+import { NotificationService } from './shared/messages/notification.service';
 import { AppRoutingModule } from './app-routing.module';
 import ptBr from '@angular/common/locales/pt';
 
@@ -33,11 +36,13 @@ registerLocaleData(ptBr);
     LoadingStateModule,
     BreadcrumbModule,
     ToastModule,
+    NotificationModule.forRoot(),
 
     TranslateModule.forRoot()
   ],
   providers: [
     MessageService,
+    ConfirmationService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     {
       provide: LocationStrategy, useClass: HashLocationStrategy

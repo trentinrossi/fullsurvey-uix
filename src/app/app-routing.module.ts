@@ -7,6 +7,18 @@ const routes: Routes = [
     loadChildren: () => import('./features/insights/insights.module').then(m => m.InsightsModule)
   },
   {
+    path: 'category',
+    loadChildren: () => import('./features/category/category.module').then(m => m.CategoryModule)
+  },
+  {
+    path: 'subject',
+    loadChildren: () => import('./features/subject/subject.module').then(m => m.SubjectModule)
+  },
+  {
+    path: 'form',
+    loadChildren: () => import('./formulario/formulario.module').then(m => m.FormularioModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'

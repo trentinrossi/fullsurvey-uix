@@ -1,0 +1,17 @@
+<p-dialog [(visible)]="showModal" appendTo="body" [header]="title" [modal]="true" [blockScroll]="true" [draggable]="false" styleClass="s-modal"
+  [closable]="true" closeIcon="fa fa-times" [autoZIndex]="true" [closeOnEscape]="true">
+  <div class="ui-g-12">
+    <form [formGroup]="formCategory" autocomplete="off">
+      <div class="required">
+        <label for="name" required>Nome</label>
+        <input pInputText id="subjectName" type="text" name="name" size="50" formControlName="name" pInputText [placeholder]="'Ex: Clima Organizacional'" />
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="footer">
+      <s-button [label]="'Salvar'" priority="primary" [disabled]="formCategory.invalid" (onClick)="save()"></s-button>
+      <s-button [label]="'Cancelar'" priority="secondary" (onClick)="cancel()"></s-button>
+    </div>
+  </p-footer>
+</p-dialog>
