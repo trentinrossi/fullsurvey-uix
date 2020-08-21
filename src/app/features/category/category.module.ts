@@ -21,9 +21,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
   declarations: [CategoryComponent, CategoryFormComponent],
   imports: [
     CommonModule,
+    CategoryRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    CategoryRoutingModule,
     CommonModule,
     TableModule,
     ButtonModule,

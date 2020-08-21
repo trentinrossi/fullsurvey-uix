@@ -1,12 +1,12 @@
 <div class="sds-container" id="page-content">
   <h1 class="sds-page-title">
-    <span id="sds-page-title">Categorias</span>
+    <span id="sds-page-title">Respondentes</span>
     <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
   </h1>
 
   <p-panel class="ui-g ui-fluid">
     <p-header>
-      Lista de categorias cadastradas
+      Lista de respondentes cadastrados
     </p-header>
     <div class="ui-g">
       <div class="ui-g-12">
@@ -14,17 +14,21 @@
           <div class="ui-g">
             <p-confirmDialog header="Confirmação" [style]="{width: '50vw'}"></p-confirmDialog>
             <s-button [label]="'Adicionar'" priority="primary" (click)="new()"></s-button>
-            <p-table [value]="categories" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
+            <p-table [value]="respondents" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
               [totalRecords]="totalElements" (onPage)="paginate($event)" #dt>
-              <!-- <ng-template pTemplate="caption">
+              <ng-template pTemplate="caption">
                 <div style="text-align: left">
                   <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                  <input type="text" pInputText size="50" placeholder="Pesquise pelo nome..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  <input type="text" pInputText size="50" placeholder="Pesquise pelo nome..." (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    style="width:auto">
                 </div>
-              </ng-template> -->
+              </ng-template>
               <ng-template pTemplate="header">
                 <tr>
                   <th>{{ 'Nome' }}</th>
+                  <th>{{ 'Tipo' }}</th>
+                  <th>{{ 'E-mail' }}</th>
+                  <th>{{ 'Telefone' }}</th>
                   <th width="150">
                     Ações
                   </th>
@@ -33,9 +37,12 @@
 
               <ng-template pTemplate="body" let-rowdata>
                 <tr>
+                  <td>{{ rowdata.name }}</td>
                   <td>
-                    {{ rowdata.name }}
+                    <s-badge [text]="respondentTypeDescription(rowdata.respondentType)" [color]="respondentTypeColor(rowdata.respondentType)"></s-badge>
                   </td>
+                  <td>{{ rowdata.email }}</td>
+                  <td>{{ rowdata.phoneNumber }}</td>
                   <td>
                     <s-button label="Ações" priority="default" [auxiliary]="true" [model]="getActions(rowdata)"></s-button>
                   </td>
@@ -52,15 +59,13 @@
             [description]="errorMessage">
           </s-empty-state>
 
-          <s-empty-state *ngIf="categories && categories.length === 0" [title]="'Nenhuma categoria cadastrada'"
-            [description]="'Clique no botão Adicionar para cadastrar uma nova categoria'">
+          <s-empty-state *ngIf="respondents && respondents.length === 0" [title]="'Nenhum respondente cadastrado'"
+            [description]="'Clique no botão Adicionar para cadastrar um novo respondente'">
           </s-empty-state>
 
           <s-loading-state [loading]="loading"></s-loading-state>
         </div>
       </div>
     </div>
-
-    <app-category-form [category]="categorySelected" (refreshData)="updateCategories($event)"></app-category-form>
   </p-panel>
 </div>

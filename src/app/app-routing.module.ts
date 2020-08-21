@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./formulario/formulario.module').then(m => m.FormularioModule)
   },
   {
+    path: 'respondent',
+    loadChildren: () => import('./features/respondent/respondent.module').then(m => m.RespondentModule)
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'

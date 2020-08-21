@@ -1,0 +1,203 @@
+<div class="sds-container" id="page-content">
+  <h1 class="sds-page-title">
+    <span id="sds-page-title">Respondentes</span>
+    <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
+  </h1>
+
+  <div class="ui-g">
+    <p-panel class="ui-g-12 ui-fluid">
+      <p-header>
+        Cadastro
+      </p-header>
+
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+          <label for="respondentType">Tipo respondente</label>
+          <p-dropdown id="respondentType" [options]="respondentTypes" (onChange)="onSelectRespondentType($event)" [(ngModel)]="respondentTypeSelected"
+            optionLabel="label"></p-dropdown>
+        </div>
+      </div>
+
+      <div class="ui-g" *ngIf="respondentTypeSelected === 'EMPLOYEE'">
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="respondentType">Identificador</label>
+            <input type="text" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="registration">Matrícula</label>
+            <input type="text" name="registration" id="registration" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="phoneNumber">Telefone</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+            <label for="cpf">E-mail</label>
+            <input type="text" name="email" id="email" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="admissionDate">Data Admissão</label>
+            <input type="text" name="admissionDate" id="admissionDate" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="dismissalDate">Data Demissão</label>
+            <input type="text" name="dismissalDate" id="dismissalDate" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-6">
+            <label for="dismissalCause">Causa Demissão</label>
+            <input type="text" name="dismissalCause" id="dismissalCause" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="companyId">Código Empresa</label>
+            <input type="text" name="companyId" id="companyId" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-9 ui-lg-9">
+            <label for="companyName">Nome Empresa</label>
+            <input type="text" name="companyName" id="companyName" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="branchId">Código Filial</label>
+            <input type="text" name="branchId" id="branchId" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-9 ui-lg-9">
+            <label for="branchName">Nome Filial</label>
+            <input type="text" name="branchName" id="branchName" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="workstationId">Posto de Trabalho</label>
+            <input type="text" name="workstationId" id="workstationId" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-4 ui-lg-4">
+            <label for="educationLevel">Nível de Formação</label>
+            <input type="text" name="educationLevel" id="educationLevel" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-5 ui-lg-5">
+            <label for="positionName">Cargo</label>
+            <input type="text" name="positionName" id="positionName" pInputText>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g" *ngIf="respondentTypeSelected === 'VISITOR'">
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-8 ui-lg-8 required">
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+            <label for="phoneNumber">Telefone</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="visitDate">Data da visita</label>
+            <input type="text" name="visitDate" id="visitDate" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-12 ui-lg-12 required">
+            <label for="visitDescription">Descrição da visita</label>
+            <textarea [rows]="5" [cols]="80" pInputTextarea name="visitDescription" id="visitDescription" autoResize="autoResize"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g" *ngIf="respondentTypeSelected === 'CANDIDATE'">
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+            <label for="phoneNumber">Telefone</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-g" *ngIf="respondentTypeSelected === 'INTERN'">
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="respondentType">Identificador</label>
+            <input type="text" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="registration">Matrícula</label>
+            <input type="text" name="registration" id="registration" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+            <label for="phoneNumber">Telefone</label>
+            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+            <label for="cpf">E-mail</label>
+            <input type="text" name="email" id="email" pInputText>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="admissionDate">Data Admissão</label>
+            <input type="text" name="admissionDate" id="admissionDate" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="experienceContractExpiration1">Vencimento 1 contrato exp.</label>
+            <input type="text" name="experienceContractExpiration1" id="experienceContractExpiration1" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <label for="experienceContractExpiration1">Vencimento 2 contrato exp.</label>
+            <input type="text" name="experienceContractExpiration1" id="experienceContractExpiration1" placeholder="DD/MM/AAAA" pInputText>
+          </div>
+        </div>
+      </div>
+
+      <p-footer>
+        <div class="ui-g">
+          <div class="ui-g-12 ui-md-3 ui-lg-2">
+            <button pButton type="button" label="Salvar" icon="fa fa-paper-plane">
+            </button>
+          </div>
+        </div>
+      </p-footer>
+    </p-panel>
+
+  </div>
+
+</div>

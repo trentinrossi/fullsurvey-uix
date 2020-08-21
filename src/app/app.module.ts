@@ -12,7 +12,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ToastModule } from 'primeng/toast';
 
-import { AnalyticsHeaderModule } from '@senior-gestao-pessoas/angular-components';
+import { AnalyticsHeaderModule, SBadgeModule } from '@senior-gestao-pessoas/angular-components';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { LoadingStateModule, LocaleModule } from '@seniorsistemas/angular-components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
