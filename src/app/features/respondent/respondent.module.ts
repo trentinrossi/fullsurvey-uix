@@ -1,7 +1,9 @@
+import { MessagesModule } from 'primeng/messages';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FieldsetModule } from 'primeng/fieldset';
 import { DropdownModule } from 'primeng/dropdown';
-import { SBadgeModule } from '@senior-gestao-pessoas/angular-components';
+import { SBadgeModule, AutoCompleteEnumModule } from '@senior-gestao-pessoas/angular-components';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +12,7 @@ import { RespondentComponent } from './respondent.component';
 import { RespondentFormComponent } from './respondent-form/respondent-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { ButtonModule, EmptyStateModule, LoadingStateModule } from '@seniorsistemas/angular-components';
+import { ButtonModule, EmptyStateModule, LoadingStateModule, ControlErrorsModule } from '@seniorsistemas/angular-components';
 import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -40,7 +42,11 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     FieldsetModule,
     InputTextareaModule,
     LoadingStateModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    AutoCompleteModule,
+    AutoCompleteEnumModule,
+    MessagesModule,
+    ControlErrorsModule
   ]
 })
 export class RespondentModule { }

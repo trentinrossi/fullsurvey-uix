@@ -36,7 +36,7 @@ export class RespondentComponent implements OnInit {
   ngOnInit() {
     this.breadcrumbItems = [
       { label: 'Gestão de pesquisas', disabled: true },
-      { label: 'Cadastro de Respondentes', disabled: true }
+      { label: 'Respondentes cadastrados', disabled: true }
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
   }
@@ -94,7 +94,7 @@ export class RespondentComponent implements OnInit {
   }
 
   new() {
-
+    this.router.navigate([`/respondent/new`]);
   }
 
   confirmDelete(respondent: Respondent): void {

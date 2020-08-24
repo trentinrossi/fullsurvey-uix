@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: RespondentFormComponent
+  },
+  {
+    path: ':new',
+    component: RespondentFormComponent
   }
 ];
 

@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { ConfirmationService } from 'primeng/api';
 import { NotificationModule } from './shared/messages/notification.module';
 import { NotificationService } from './shared/messages/notification.service';
@@ -16,7 +17,7 @@ import { AnalyticsHeaderModule, SBadgeModule } from '@senior-gestao-pessoas/angu
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { LoadingStateModule, LocaleModule } from '@seniorsistemas/angular-components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { default as fallback } from '../locale/pt-BR.json';
 import { TranslateModule } from '@ngx-translate/core';
@@ -46,6 +47,11 @@ registerLocaleData(ptBr);
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     {
       provide: LocationStrategy, useClass: HashLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]
