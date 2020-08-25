@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RespondentType, Respondent } from './../respondent.model';
 import { MenuItem, SelectItem, MessageService } from 'primeng/api';
 import { Component, OnInit, ErrorHandler } from '@angular/core';
+import moment from 'moment';
 
 @Component({
   selector: 'app-respondent-form',
@@ -21,11 +22,11 @@ export class RespondentFormComponent implements OnInit {
   idRespondent: string;
   isNew = false;
   title = '';
+  pt: any;
 
   constructor(
     private fb: FormBuilder,
     private service: RespondentService,
-    private message: MessageService,
     private route: ActivatedRoute,
     private router: Router,
     private errorHandler: ErrorHandler
@@ -39,14 +40,28 @@ export class RespondentFormComponent implements OnInit {
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
 
+    this.pt = {
+      firstDayOfWeek: 0,
+      dayNames: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
+      dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+      dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+      // tslint:disable-next-line: max-line-length
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+      today: 'Hoje',
+      clear: 'Limpar',
+      dateFormat: 'dd/mm/yy',
+      weekHeader: 'Semana'
+    };
+
     this.form = this.fb.group({
       id: [''],
       respondentIdentifier: [''],
       respondentType: ['', [Validators.required]],
-      registration: ['', [Validators.minLength(1)]],
+      registration: [''],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      cpf: ['', [Validators.minLength(1), Validators.maxLength(45)]],
-      email: ['', Validators.required],
+      cpf: ['', Validators.maxLength(45)],
+      email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.maxLength(45)]],
       admissionDate: [''],
       experienceContractExpiration1: [''],
@@ -56,9 +71,9 @@ export class RespondentFormComponent implements OnInit {
       positionName: ['', [Validators.maxLength(150)]],
       dismissalDate: [''],
       dismissalCause: ['', [Validators.max(100)]],
-      companyId: ['', [Validators.minLength(1)]],
+      companyId: [''],
       companyName: ['', [Validators.maxLength(255)]],
-      branchId: ['', [Validators.minLength(1)]],
+      branchId: [''],
       branchName: ['', [Validators.maxLength(255)]],
       visitDate: [''],
       visitDescription: ['', [Validators.max(150)]],
@@ -71,12 +86,38 @@ export class RespondentFormComponent implements OnInit {
       this.title = 'Alterar Respondente';
       this.service.find(id).subscribe(respondent => {
         this.form.patchValue(respondent);
+        this.convertDateFromAPI();
         this.setRespondentTypeSelected(respondent.respondentType);
         console.log(this.form);
       });
     } else {
       this.isNew = true;
       this.title = 'Novo Respondente';
+    }
+  }
+
+  get registration() { return this.form.get('registration'); }
+  get name() { return this.form.get('name'); }
+  get cpf() { return this.form.get('cpf'); }
+  get email() { return this.form.get('email'); }
+  get companyId() { return this.form.get('companyId'); }
+  get branchId() { return this.form.get('branchId'); }
+
+  convertDateFromAPI() {
+    if (this.form.get('admissionDate').value) {
+      this.form.get('admissionDate').setValue(moment(this.form.get('admissionDate').value).toDate());
+    }
+    if (this.form.get('experienceContractExpiration1').value) {
+      this.form.get('experienceContractExpiration1').setValue(moment(this.form.get('experienceContractExpiration1').value).toDate());
+    }
+    if (this.form.get('experienceContractExpiration2').value) {
+      this.form.get('experienceContractExpiration2').setValue(moment(this.form.get('experienceContractExpiration2').value).toDate());
+    }
+    if (this.form.get('dismissalDate').value) {
+      this.form.get('dismissalDate').setValue(moment(this.form.get('dismissalDate').value).toDate());
+    }
+    if (this.form.get('visitDate').value) {
+      this.form.get('visitDate').setValue(moment(this.form.get('visitDate').value).toDate());
     }
   }
 
@@ -129,11 +170,9 @@ export class RespondentFormComponent implements OnInit {
   update() {
     this.service.update(this.form.controls.id.value, this.form.value)
       .subscribe(() => {
-        // this.casal = casal;
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);
-        // this.message.add({ severity: 'error', summary: 'Erro ao alterar o registro', detail: `${error.message}` });
       }));
   }
 
@@ -143,7 +182,6 @@ export class RespondentFormComponent implements OnInit {
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);
-        // this.message.add({ severity: 'error', summary: 'Erro ao inserir o registro', detail: `${error.message}` });
       }));
   }
 

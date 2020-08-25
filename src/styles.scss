@@ -7,3 +7,9 @@ body .ui-button:not(.ui-button-icon-only) .ui-button-icon-left,
 body .ui-button:not(.ui-button-icon-only) .ui-button-icon-right {
   display: block;
 }
+
+.error-message {
+  color: #c13018;
+  margin-top: 5px;
+  font-size: 12px;
+}

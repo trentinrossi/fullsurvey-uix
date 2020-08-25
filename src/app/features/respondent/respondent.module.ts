@@ -1,3 +1,4 @@
+import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -46,7 +47,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     AutoCompleteModule,
     AutoCompleteEnumModule,
     MessagesModule,
-    ControlErrorsModule
+    ControlErrorsModule,
+    CalendarModule
   ]
 })
 export class RespondentModule { }

@@ -27,42 +27,66 @@
 
       <div class="ui-g" *ngIf="respondentTypeSelected === 'EMPLOYEE'">
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="respondentType">Identificador</label>
             <input type="text" formControlName="respondentIdentifier" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
           </div>
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="registration">Matrícula</label>
             <input type="text" formControlName="registration" name="registration" id="registration" required pInputText>
-            <s-control-errors [control]="form.controls['registration']" [errorMessages]="{ required: 'Preenchimento obrigatório' }"></s-control-errors>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
             <label for="name">Nome</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+              <div *ngIf="name.errors.required">
+                Nome é obrigatório.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Nome deve conter no mínimo 3 caracteres.
+              </div>
+            </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="cpf">CPF</label>
             <input type="text" formControlName="cpf" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
+            <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="error-message">
+              <div *ngIf="cpf.errors.maxlength">
+                CPF deve conter no máximo 45 caracteres.
+              </div>
+            </div>
           </div>
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="phoneNumber">Telefone</label>
             <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
             <label for="cpf">E-mail</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+              <div *ngIf="email.errors.required">
+                E-mail é obrigatório.
+              </div>
+              <div *ngIf="email.errors.email">
+                E-mail inválido.
+              </div>
+            </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="admissionDate">Data Admissão</label>
-            <input type="text" formControlName="admissionDate" name="admissionDate" id="admissionDate" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="admissionDate" name="admissionDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="admissionDate"
+              [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="dismissalDate">Data Demissão</label>
-            <input type="text" formControlName="dismissalDate" name="dismissalDate" id="dismissalDate" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="dismissalDate" name="dismissalDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="dismissalDate"
+              [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6">
             <label for="dismissalCause">Causa Demissão</label>
@@ -70,7 +94,7 @@
           </div>
         </div>
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="companyId">Código Empresa</label>
             <input type="text" formControlName="companyId" name="companyId" id="companyId" pInputText>
           </div>
@@ -80,7 +104,7 @@
           </div>
         </div>
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="branchId">Código Filial</label>
             <input type="text" formControlName="branchId" name="branchId" id="branchId" pInputText>
           </div>
@@ -110,26 +134,45 @@
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
             <label for="name">Nome</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+              <div *ngIf="name.errors.required">
+                Nome é obrigatório.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Nome deve conter no mínimo 3 caracteres.
+              </div>
+            </div>
           </div>
           <div class="ui-g-12 ui-md-8 ui-lg-8 required">
             <label for="email">E-mail</label>
-            <input type="text" name="email" id="email" pInputText>
+            <input type="text" formControlName="email" name="email" id="email" pInputText>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+              <div *ngIf="email.errors.required">
+                E-mail é obrigatório.
+              </div>
+              <div *ngIf="email.errors.email">
+                E-mail inválido.
+              </div>
+            </div>
           </div>
         </div>
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+          <div class="ui-g-12 ui-md-4 ui-lg-4 ">
             <label for="phoneNumber">Telefone</label>
-            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+            <input type="text" name="phoneNumber" formControlName="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="visitDate">Data da visita</label>
-            <input type="text" name="visitDate" id="visitDate" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="visitDate" name="visitDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="visitDate"
+              [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
         </div>
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-12 ui-lg-12 required">
+          <div class="ui-g-12 ui-md-12 ui-lg-12">
             <label for="visitDescription">Descrição da visita</label>
-            <textarea [rows]="5" [cols]="80" pInputTextarea name="visitDescription" id="visitDescription" autoResize="autoResize"></textarea>
+            <textarea [rows]="5" [cols]="80" pInputTextarea formControlName="visitDescription" name="visitDescription" id="visitDescription"
+              autoResize="autoResize"></textarea>
           </div>
         </div>
       </div>
@@ -138,13 +181,29 @@
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
             <label for="name">Nome</label>
-            <input type="text" name="name" id="name" pInputText>
+            <input type="text" formControlName="name" name="name" id="name" pInputText>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+              <div *ngIf="name.errors.required">
+                Nome é obrigatório.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Nome deve conter no mínimo 3 caracteres.
+              </div>
+            </div>
           </div>
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
             <label for="email">E-mail</label>
-            <input type="text" name="email" id="email" pInputText>
+            <input type="text" formControlName="email" name="email" id="email" pInputText>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+              <div *ngIf="email.errors.required">
+                E-mail é obrigatório.
+              </div>
+              <div *ngIf="email.errors.email">
+                E-mail inválido.
+              </div>
+            </div>
           </div>
-          <div class="ui-g-12 ui-md-4 ui-lg-4 required">
+          <div class="ui-g-12 ui-md-4 ui-lg-4">
             <label for="phoneNumber">Telefone</label>
             <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
@@ -153,45 +212,72 @@
 
       <div class="ui-g" *ngIf="respondentTypeSelected === 'INTERN'">
         <div class="ui-g-12">
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="respondentType">Identificador</label>
-            <input type="text" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
+            <input type="text" formControlName="respondentIdentifier" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
           </div>
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="registration">Matrícula</label>
-            <input type="text" name="registration" id="registration" pInputText>
+            <input type="text" formControlName="registration" name="registration" id="registration" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
             <label for="name">Nome</label>
-            <input type="text" name="name" id="name" pInputText>
+            <input type="text" formControlName="name" name="name" id="name" pInputText>
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+              <div *ngIf="name.errors.required">
+                Nome é obrigatório.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Nome deve conter no mínimo 3 caracteres.
+              </div>
+            </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="cpf">CPF</label>
-            <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
+            <input type="text" formControlName="cpf" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
+            <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="error-message">
+              <div *ngIf="cpf.errors.maxlength">
+                CPF deve conter no máximo 45 caracteres.
+              </div>
+            </div>
           </div>
-          <div class="ui-g-12 ui-md-3 ui-lg-3 required">
+          <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="phoneNumber">Telefone</label>
-            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+            <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="cpf">E-mail</label>
-            <input type="text" name="email" id="email" pInputText>
+            <label for="email">E-mail</label>
+            <input type="text" formControlName="email" name="email" id="email" pInputText>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+              <div *ngIf="email.errors.required">
+                E-mail é obrigatório.
+              </div>
+              <div *ngIf="email.errors.email">
+                E-mail inválido.
+              </div>
+            </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="admissionDate">Data Admissão</label>
-            <input type="text" name="admissionDate" id="admissionDate" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="admissionDate" name="admissionDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="admissionDate"
+              [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="experienceContractExpiration1">Vencimento 1 contrato exp.</label>
-            <input type="text" name="experienceContractExpiration1" id="experienceContractExpiration1" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="experienceContractExpiration1" name="experienceContractExpiration1" showButtonBar="true" placeholder="DD/MM/AAAA"
+              [showIcon]="true" id="experienceContractExpiration1" [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="experienceContractExpiration2">Vencimento 2 contrato exp.</label>
-            <input type="text" name="experienceContractExpiration2" id="experienceContractExpiration2" placeholder="DD/MM/AAAA" pInputText>
+            <p-calendar formControlName="experienceContractExpiration2" name="experienceContractExpiration2" showButtonBar="true" placeholder="DD/MM/AAAA"
+              [showIcon]="true" id="experienceContractExpiration2" [locale]="pt" [dateFormat]="'dd/mm/yy'">
+            </p-calendar>
           </div>
         </div>
       </div>
