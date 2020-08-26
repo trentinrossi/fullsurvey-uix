@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { Category } from './category.model';
 import { CategoryService } from './category.service';
@@ -29,13 +30,14 @@ export class CategoryComponent implements OnInit {
     private service: CategoryService,
     private errorHandler: ErrorHandler,
     private confirmation: ConfirmationService,
-    private message: MessageService
+    private message: MessageService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.breadcrumbItems = [
-      { label: 'Gestão de pesquisas', disabled: true },
-      { label: 'Cadastro de Assuntos', disabled: true }
+      { label: this.translate.instant('application.title'), disabled: true },
+      { label: this.translate.instant('category.title_form'), disabled: true }
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
   }
@@ -68,7 +70,7 @@ export class CategoryComponent implements OnInit {
       {
         id: 'edit',
         icon: 'fa fa-pencil',
-        label: 'Editar',
+        label: this.translate.instant('application.edit'),
         command: () => {
           this.categorySelected = category;
           this.toggleModal();
@@ -77,7 +79,7 @@ export class CategoryComponent implements OnInit {
       {
         id: 'delete',
         icon: 'fa fa-trash',
-        label: 'Excluir',
+        label: this.translate.instant('application.delete'),
         command: () => this.confirmDelete(category)
       }
     ];
@@ -85,9 +87,9 @@ export class CategoryComponent implements OnInit {
 
   confirmDelete(category: Category): void {
     this.confirmation.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      acceptLabel: 'Sim',
-      rejectLabel: 'Não',
+      message: this.translate.instant('application.confirm_delete'),
+      acceptLabel: this.translate.instant('application.yes'),
+      rejectLabel: this.translate.instant('application.no'),
       accept: () => {
         this.categorySelected = category;
         this.delete(this.categorySelected);
@@ -99,7 +101,7 @@ export class CategoryComponent implements OnInit {
     this.service.delete(category.id)
       .subscribe(() => {
         this.updateCategories();
-        this.message.add({ severity: 'success', detail: 'Categoria excluída com sucesso!' });
+        this.message.add({ severity: 'success', detail: this.translate.instant('category.delete_sucsess') });
       });
   }
 

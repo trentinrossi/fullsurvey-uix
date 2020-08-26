@@ -1,5 +1,29 @@
 {
-  "application.title": "Gestão de pesquisas",
+  "application": {
+    "title": "Gestão de pesquisas",
+    "add": "Adicionar",
+    "save": "Salvar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "yes": "Sim",
+    "no": "Não",
+    "confirm": "Confirmação",
+    "confirm_delete": "Tem certeza que deseja excluir?",
+    "total_found_records": "{{ totalElements }} registros encontrados",
+    "actions": "Ações",
+    "name": "Nome",
+    "error.something_is_wrong": "Algo deu errado!",
+    "retry": "Tentar novamente"
+  },
+  "category": {
+    "title": "Categoria",
+    "title_form": "Cadastro de Categoria",
+    "list_title": "Lista de Categorias Cadastradas",
+    "delete_success": "Categoria excluída com sucesso!",
+    "empty": "Nenhuma categoria cadastrada",
+    "add_new": "Clique no botão Adicionar para cadastrar uma nova categoria"
+  },
+
   "platform.filter_service.find_suggestions_error": "Ocorreu um erro ao executar a sua solicitação. É necessário contatar o Administrador do sistema",
   "platform.filter_service.hcm_vacancymanagement_descendants_all": "Todos os liderados",
   "platform.filter_service.hcm_vacancymanagement_descendants_direct": "Liderados diretos",

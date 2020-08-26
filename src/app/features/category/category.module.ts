@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
@@ -33,6 +34,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
+    TranslateModule,
 
     LoadingStateModule,
     BreadcrumbModule

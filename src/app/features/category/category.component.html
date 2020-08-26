@@ -1,19 +1,19 @@
 <div class="sds-container" id="page-content">
   <h1 class="sds-page-title">
-    <span id="sds-page-title">Categorias</span>
+    <span id="sds-page-title">{{ 'category.title' | translate }}</span>
     <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
   </h1>
 
   <p-panel class="ui-g ui-fluid">
     <p-header>
-      Lista de categorias cadastradas
+      {{ 'category.list_title' | translate }}
     </p-header>
     <div class="ui-g">
       <div class="ui-g-12">
         <div class="ui-lg-12 ui-md-12 ui-sm-12">
           <div class="ui-g">
-            <p-confirmDialog header="Confirmação" [style]="{width: '50vw'}"></p-confirmDialog>
-            <s-button [label]="'Adicionar'" priority="primary" (click)="new()"></s-button>
+            <p-confirmDialog [header]="'application.confirm' | translate" [style]="{width: '50vw'}"></p-confirmDialog>
+            <s-button [label]="'application.add' | translate" priority="primary" (click)="new()"></s-button>
             <p-table [value]="categories" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
               [totalRecords]="totalElements" (onPage)="paginate($event)" #dt>
               <!-- <ng-template pTemplate="caption">
@@ -24,7 +24,7 @@
               </ng-template> -->
               <ng-template pTemplate="header">
                 <tr>
-                  <th>{{ 'Nome' }}</th>
+                  <th>{{ 'application.name' | translate }}</th>
                   <th width="150">
                     Ações
                   </th>
@@ -37,23 +37,22 @@
                     {{ rowdata.name }}
                   </td>
                   <td>
-                    <s-button label="Ações" priority="default" [auxiliary]="true" [model]="getActions(rowdata)"></s-button>
+                    <s-button [label]="'application.actions' | translate" priority="default" [auxiliary]="true" [model]="getActions(rowdata)"></s-button>
                   </td>
                 </tr>
               </ng-template>
               <ng-template pTemplate="paginatorright">
-                <label for="">{{ totalElements }} registros encontrados</label>
+                <label for="">{{ 'application.total_found_records' | translate:{'totalElements': totalElements} }} </label>
               </ng-template>
             </p-table>
           </div>
         </div>
         <div class="ui-lg-12 error-container">
-          <s-empty-state *ngIf="hasErrors" [title]="'Algo deu errado!'" [primaryActionLabel]="'Tentar novamente'" (primaryAction)="refresh()"
-            [description]="errorMessage">
+          <s-empty-state *ngIf="hasErrors" [title]="'application.error.something_is_wrong' | translate" [primaryActionLabel]="'application.retry' | translate"
+            (primaryAction)="refresh()" [description]="errorMessage">
           </s-empty-state>
 
-          <s-empty-state *ngIf="categories && categories.length === 0" [title]="'Nenhuma categoria cadastrada'"
-            [description]="'Clique no botão Adicionar para cadastrar uma nova categoria'">
+          <s-empty-state *ngIf="categories && categories.length === 0" [title]="'category.empty' | translate" [description]="'category.add_new' | translate">
           </s-empty-state>
 
           <s-loading-state [loading]="loading"></s-loading-state>
