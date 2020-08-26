@@ -1,33 +1,30 @@
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { RespondentFormComponent } from './respondent-form/respondent-form.component';
-import { RespondentService } from './respondent.service';
-import { Respondent, RespondentType } from './respondent.model';
+import { Survey } from './survey.model';
+import { SurveyService } from './survey.service';
 import { MenuItem, ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
-import { Component, OnInit, ErrorHandler, ViewChild } from '@angular/core';
-import { BadgeColor } from '@senior-gestao-pessoas/angular-components';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-respondent',
-  templateUrl: './respondent.component.html',
-  styleUrls: ['./respondent.component.scss']
+  selector: 'app-survey',
+  templateUrl: './survey.component.html',
+  styleUrls: ['./survey.component.scss']
 })
-export class RespondentComponent implements OnInit {
+export class SurveyComponent implements OnInit {
 
-  @ViewChild(RespondentFormComponent, { static: false }) respondentModal: RespondentFormComponent;
   breadcrumbItems: MenuItem[];
   home: MenuItem;
 
   totalElements: number;
   loading = false;
-  respondents: Respondent[];
-  respondentSelected: Respondent;
+  surveys: Survey[];
+  surveySelected: Survey;
   errorMessage: string;
   hasErrors: boolean;
   currentPage: number;
 
   constructor(
-    private service: RespondentService,
+    private service: SurveyService,
     private errorHandler: ErrorHandler,
     private confirmation: ConfirmationService,
     private message: MessageService,
@@ -38,7 +35,7 @@ export class RespondentComponent implements OnInit {
   ngOnInit() {
     this.breadcrumbItems = [
       { label: this.translate.instant('application.title'), disabled: true },
-      { label: this.translate.instant('respondent.title_form'), disabled: true }
+      { label: this.translate.instant('survey.title_form'), disabled: true }
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
   }
@@ -51,7 +48,7 @@ export class RespondentComponent implements OnInit {
 
     this.service.findAll(page, event.rows, filter)
       .subscribe(resp => {
-        this.respondents = resp.content;
+        this.surveys = resp.content;
         this.totalElements = resp.totalElements;
         this.loading = false;
       }, (error => {
@@ -62,53 +59,44 @@ export class RespondentComponent implements OnInit {
       }));
   }
 
-  respondentTypeDescription(description: string) {
-    if (description === RespondentType.CANDIDATE) { return this.translate.instant('application.candidate'); }
-    if (description === RespondentType.EMPLOYEE) { return this.translate.instant('application.employee'); }
-    if (description === RespondentType.INTERN) { return this.translate.instant('application.intern'); }
-    if (description === RespondentType.VISITOR) { return this.translate.instant('application.visitor'); }
-    return description;
-  }
-
-  respondentTypeColor(description: string) {
-    if (description === RespondentType.CANDIDATE) { return BadgeColor.TRADEWIND; }
-    if (description === RespondentType.EMPLOYEE) { return BadgeColor.GREEN; }
-    if (description === RespondentType.INTERN) { return BadgeColor.BLUE; }
-    if (description === RespondentType.VISITOR) { return BadgeColor.ORANGE; }
-  }
-
-  getActions(respondent: Respondent): MenuItem[] {
+  getActions(survey: Survey): MenuItem[] {
     return [
       {
         id: 'edit',
         icon: 'fa fa-pencil',
         label: this.translate.instant('application.edit'),
         command: () => {
-          this.respondentSelected = respondent;
-          this.router.navigate([`/respondent/${respondent.id}`]);
+          this.surveySelected = survey;
+          this.router.navigate([`/survey/${survey.id}`]);
         }
       },
       {
         id: 'delete',
         icon: 'fa fa-trash',
         label: this.translate.instant('application.delete'),
-        command: () => this.confirmDelete(respondent)
+        command: () => this.confirmDelete(survey)
+      },
+      {
+        id: 'manage',
+        icon: 'fa fa-bar-chart',
+        label: this.translate.instant('application.manage'),
+        command: () => this.confirmDelete(survey)
       }
     ];
   }
 
   new() {
-    this.router.navigate([`/respondent/new`]);
+    this.router.navigate([`/survey/new`]);
   }
 
-  confirmDelete(respondent: Respondent): void {
+  confirmDelete(survey: Survey): void {
     this.confirmation.confirm({
       message: this.translate.instant('application.confirm_delete'),
       acceptLabel: this.translate.instant('application.yes'),
       rejectLabel: this.translate.instant('application.no'),
       accept: () => {
-        this.respondentSelected = respondent;
-        this.delete(this.respondentSelected);
+        this.surveySelected = survey;
+        this.delete(this.surveySelected);
       }
     });
   }
@@ -116,7 +104,7 @@ export class RespondentComponent implements OnInit {
   delete(survey: any) {
     this.service.delete(survey.id)
       .subscribe(() => {
-        this.updateRespondents();
+        this.updateRecords();
         this.message.add({ severity: 'success', detail: this.translate.instant('application.delete_success') });
       });
   }
@@ -125,11 +113,11 @@ export class RespondentComponent implements OnInit {
     this.currentPage = event.first / event.rows;
   }
 
-  updateRespondents() {
+  updateRecords() {
     this.loading = true;
     this.service.findAll(this.currentPage, 5, '')
       .subscribe(resp => {
-        this.respondents = resp.content;
+        this.surveys = resp.content;
         this.totalElements = resp.totalElements;
         this.loading = false;
       }, (error => {

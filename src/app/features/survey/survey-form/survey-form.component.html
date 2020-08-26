@@ -1,1 +1,18 @@
-<p>survey-form works!</p>
+<div class="sds-container" id="page-content">
+  <h1 class="sds-page-title">
+    <span id="sds-page-title">{{ 'survey.title' | translate }}</span>
+    <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
+  </h1>
+
+  <p-panel class="ui-fluid">
+    <p-header>
+      {{ 'survey.list_title' | translate }}
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-steps [model]="items"></p-steps>
+      </div>
+    </div>
+  </p-panel>
+
+</div>

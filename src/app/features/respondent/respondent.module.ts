@@ -30,7 +30,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     RespondentRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     TableModule,
     ButtonModule,
     PanelModule,

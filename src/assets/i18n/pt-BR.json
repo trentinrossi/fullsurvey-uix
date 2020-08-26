@@ -6,6 +6,7 @@
     "edit": "Editar",
     "delete": "Excluir",
     "cancel": "Cancelar",
+    "manage": "Gerenciar",
     "yes": "Sim",
     "no": "Não",
     "confirm": "Confirmação",
@@ -71,6 +72,15 @@
     "visitDescription": "Descrição da visita",
     "experienceContractExpiration1": "Vencimento do primeiro contrato",
     "experienceContractExpiration2": "Vencimento do segundo contrato"
+  },
+  "survey": {
+    "new": "Nova pesquisa",
+    "edit": "Alterar pesquisa",
+    "title": "Pesquisa",
+    "title_form": "Cadastro de Pesquisa",
+    "list_title": "Lista de Pesquisas Cadastradas",
+    "empty": "Nenhuma pesquisa cadastrada",
+    "add_new": "Clique no botão Adicionar para cadastrar uma nova pesquisa"
   },
 
   "platform.filter_service.find_suggestions_error": "Ocorreu um erro ao executar a sua solicitação. É necessário contatar o Administrador do sistema",
