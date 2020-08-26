@@ -29,6 +29,7 @@ export class RespondentFormComponent implements OnInit {
     private service: RespondentService,
     private route: ActivatedRoute,
     private router: Router,
+    private message: MessageService,
     private errorHandler: ErrorHandler
   ) { }
 
@@ -170,6 +171,7 @@ export class RespondentFormComponent implements OnInit {
   update() {
     this.service.update(this.form.controls.id.value, this.form.value)
       .subscribe(() => {
+        this.message.add({ severity: 'success', detail: 'Respondente alterado com sucesso!' });
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);
@@ -179,6 +181,7 @@ export class RespondentFormComponent implements OnInit {
   insert() {
     this.service.insert(this.form.value)
       .subscribe(() => {
+        this.message.add({ severity: 'success', detail: 'Respondente inserido com sucesso!' });
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);

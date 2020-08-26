@@ -133,8 +133,6 @@ export class RespondentComponent implements OnInit {
     this.loading = true;
     this.service.findAll(this.currentPage, 5, '')
       .subscribe(resp => {
-        console.log(resp.content);
-
         this.respondents = resp.content;
         this.totalElements = resp.totalElements;
         this.loading = false;
