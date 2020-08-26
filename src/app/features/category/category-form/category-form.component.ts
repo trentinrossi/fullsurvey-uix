@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { NotificationService } from './../../../shared/messages/notification.service';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { CategoryService } from './../category.service';
@@ -21,7 +22,8 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private service: CategoryService,
-    private message: MessageService
+    private message: MessageService,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -39,7 +41,7 @@ export class CategoryFormComponent implements OnInit, OnChanges {
         name: this.category ? this.category.name : ''
       });
     }
-    this.title = !this.category ? 'Nova categoria' : 'Alterar categoria';
+    this.title = !this.category ? this.translate.instant('category.new') : this.translate.instant('category.edit');
   }
 
   get formControls() { return this.formCategory.controls; }
@@ -56,10 +58,10 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   addNew() {
     this.service.insert(this.formCategory.value)
       .subscribe(() => {
-        this.message.add({ severity: 'success', detail: 'Adicionado com sucesso' });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.new_success') });
         this.returnChangedCategory();
       }, (error => {
-        this.message.add({ severity: 'error', summary: 'Erro ao salvar o registro', detail: `${error}` });
+        this.message.add({ severity: 'error', summary: this.translate.instant('application.new_error'), detail: `${error}` });
       }));
     this.cancel();
   }
@@ -67,10 +69,10 @@ export class CategoryFormComponent implements OnInit, OnChanges {
   edit() {
     this.service.update(this.category.id, this.formCategory.value)
       .subscribe(() => {
-        this.message.add({ severity: 'success', detail: 'Alterado com sucesso' });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.edit_success') });
         this.returnChangedCategory();
       }, (error => {
-        this.message.add({ severity: 'error', summary: 'Erro ao salvar o registro', detail: `${error}` });
+        this.message.add({ severity: 'error', summary: this.translate.instant('application.edit_error'), detail: `${error}` });
       }));
     this.cancel();
   }

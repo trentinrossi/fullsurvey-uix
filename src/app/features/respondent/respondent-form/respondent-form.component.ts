@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RespondentService } from './../respondent.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -30,14 +31,15 @@ export class RespondentFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private message: MessageService,
-    private errorHandler: ErrorHandler
+    private errorHandler: ErrorHandler,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.breadcrumbItems = [
-      { label: 'Gestão de pesquisas', disabled: true },
-      { label: 'Respondentes cadastrados', disabled: false, routerLink: '/respondent' },
-      { label: 'Cadastro de Respondentes', disabled: true },
+      { label: this.translate.instant('application.title'), disabled: true },
+      { label: this.translate.instant('respondent.list_title'), disabled: false, routerLink: '/respondent' },
+      { label: this.translate.instant('respondent.title'), disabled: true },
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
 
@@ -84,7 +86,7 @@ export class RespondentFormComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id !== 'new') {
-      this.title = 'Alterar Respondente';
+      this.title = this.translate.instant('respondent.edit');
       this.service.find(id).subscribe(respondent => {
         this.form.patchValue(respondent);
         this.convertDateFromAPI();
@@ -93,7 +95,7 @@ export class RespondentFormComponent implements OnInit {
       });
     } else {
       this.isNew = true;
-      this.title = 'Novo Respondente';
+      this.title = this.translate.instant('respondent.new');
     }
   }
 
@@ -124,10 +126,10 @@ export class RespondentFormComponent implements OnInit {
 
   getAllRespondents() {
     this.respondentTypes = [
-      { label: 'Empregado', value: RespondentType.EMPLOYEE },
-      { label: 'Visitante', value: RespondentType.VISITOR },
-      { label: 'Candidato', value: RespondentType.CANDIDATE },
-      { label: 'Estagiário', value: RespondentType.INTERN }
+      { label: this.translate.instant('application.employee'), value: RespondentType.EMPLOYEE },
+      { label: this.translate.instant('application.visitor'), value: RespondentType.VISITOR },
+      { label: this.translate.instant('application.candidate'), value: RespondentType.CANDIDATE },
+      { label: this.translate.instant('application.intern'), value: RespondentType.INTERN }
     ];
   }
 
@@ -135,16 +137,28 @@ export class RespondentFormComponent implements OnInit {
     this.respondentTypeSelected = type;
     switch (type) {
       case RespondentType.CANDIDATE:
-        this.form.controls._respondentTypeSelected.setValue({ label: 'Candidato', value: RespondentType.CANDIDATE });
+        this.form.controls._respondentTypeSelected.setValue({
+          label: this.translate.instant('application.candidate'),
+          value: RespondentType.CANDIDATE
+        });
         break;
       case RespondentType.EMPLOYEE:
-        this.form.controls._respondentTypeSelected.setValue({ label: 'Empregado', value: RespondentType.EMPLOYEE });
+        this.form.controls._respondentTypeSelected.setValue({
+          label: this.translate.instant('application.employee'),
+          value: RespondentType.EMPLOYEE
+        });
         break;
       case RespondentType.INTERN:
-        this.form.controls._respondentTypeSelected.setValue({ label: 'Estagiário', value: RespondentType.INTERN });
+        this.form.controls._respondentTypeSelected.setValue({
+          label: this.translate.instant('application.intern'),
+          value: RespondentType.INTERN
+        });
         break;
       case RespondentType.VISITOR:
-        this.form.controls._respondentTypeSelected.setValue({ label: 'Visitante', value: RespondentType.VISITOR });
+        this.form.controls._respondentTypeSelected.setValue({
+          label: this.translate.instant('application.visitor'),
+          value: RespondentType.VISITOR
+        });
         break;
       default:
         break;
@@ -171,7 +185,7 @@ export class RespondentFormComponent implements OnInit {
   update() {
     this.service.update(this.form.controls.id.value, this.form.value)
       .subscribe(() => {
-        this.message.add({ severity: 'success', detail: 'Respondente alterado com sucesso!' });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.edit_success') });
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);
@@ -181,7 +195,7 @@ export class RespondentFormComponent implements OnInit {
   insert() {
     this.service.insert(this.form.value)
       .subscribe(() => {
-        this.message.add({ severity: 'success', detail: 'Respondente inserido com sucesso!' });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.new_success') });
         this.router.navigate(['/respondent']);
       }, (error => {
         this.errorHandler.handleError(error);

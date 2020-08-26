@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { RespondentFormComponent } from './respondent-form/respondent-form.component';
 import { RespondentService } from './respondent.service';
@@ -30,13 +31,14 @@ export class RespondentComponent implements OnInit {
     private errorHandler: ErrorHandler,
     private confirmation: ConfirmationService,
     private message: MessageService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.breadcrumbItems = [
-      { label: 'Gestão de pesquisas', disabled: true },
-      { label: 'Respondentes cadastrados', disabled: true }
+      { label: this.translate.instant('application.title'), disabled: true },
+      { label: this.translate.instant('respondent.title_form'), disabled: true }
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
   }
@@ -61,10 +63,10 @@ export class RespondentComponent implements OnInit {
   }
 
   respondentTypeDescription(description: string) {
-    if (description === RespondentType.CANDIDATE) { return 'Candidato'; }
-    if (description === RespondentType.EMPLOYEE) { return 'Empregado'; }
-    if (description === RespondentType.INTERN) { return 'Estagiário'; }
-    if (description === RespondentType.VISITOR) { return 'Visitante'; }
+    if (description === RespondentType.CANDIDATE) { return this.translate.instant('application.candidate'); }
+    if (description === RespondentType.EMPLOYEE) { return this.translate.instant('application.employee'); }
+    if (description === RespondentType.INTERN) { return this.translate.instant('application.intern'); }
+    if (description === RespondentType.VISITOR) { return this.translate.instant('application.visitor'); }
     return description;
   }
 
@@ -80,7 +82,7 @@ export class RespondentComponent implements OnInit {
       {
         id: 'edit',
         icon: 'fa fa-pencil',
-        label: 'Editar',
+        label: this.translate.instant('application.edit'),
         command: () => {
           this.respondentSelected = respondent;
           this.router.navigate([`/respondent/${respondent.id}`]);
@@ -89,7 +91,7 @@ export class RespondentComponent implements OnInit {
       {
         id: 'delete',
         icon: 'fa fa-trash',
-        label: 'Excluir',
+        label: this.translate.instant('application.delete'),
         command: () => this.confirmDelete(respondent)
       }
     ];
@@ -101,9 +103,9 @@ export class RespondentComponent implements OnInit {
 
   confirmDelete(respondent: Respondent): void {
     this.confirmation.confirm({
-      message: 'Tem certeza que deseja excluir?',
-      acceptLabel: 'Sim',
-      rejectLabel: 'Não',
+      message: this.translate.instant('application.confirm_delete'),
+      acceptLabel: this.translate.instant('application.yes'),
+      rejectLabel: this.translate.instant('application.no'),
       accept: () => {
         this.respondentSelected = respondent;
         this.delete(this.respondentSelected);
@@ -115,13 +117,7 @@ export class RespondentComponent implements OnInit {
     this.service.delete(category.id)
       .subscribe(() => {
         this.updateRespondents();
-        this.message.add({ severity: 'success', detail: 'Respondente excluído com sucesso!' });
-      }, (error) => {
-        this.message.add({
-          severity: 'error',
-          summary: 'Erro ao excluir o respondente',
-          detail: `Erro ao excluir ${error.error.error}`
-        });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.delete_success') });
       });
   }
 

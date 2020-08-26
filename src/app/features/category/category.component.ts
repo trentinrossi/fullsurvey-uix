@@ -101,7 +101,7 @@ export class CategoryComponent implements OnInit {
     this.service.delete(category.id)
       .subscribe(() => {
         this.updateCategories();
-        this.message.add({ severity: 'success', detail: this.translate.instant('category.delete_sucsess') });
+        this.message.add({ severity: 'success', detail: this.translate.instant('application.delete_success') });
       });
   }
 

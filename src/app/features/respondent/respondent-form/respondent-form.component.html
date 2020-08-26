@@ -1,6 +1,6 @@
 <div class="sds-container" id="page-content">
   <h1 class="sds-page-title">
-    <span id="sds-page-title">Respondente</span>
+    <span id="sds-page-title">{{ 'respondent.title' | translate }}</span>
     <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
   </h1>
 
@@ -16,10 +16,11 @@
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
             <div class="ui-g"></div>
-            <label for="respondentType">Tipo respondente</label>
+            <label for="respondentType">{{ 'respondent.respondentType' | translate }}</label>
             <p-autoComplete formControlName="_respondentTypeSelected" [suggestions]="respondentTypes" field="label" (completeMethod)="getAllRespondents()"
-              [dropdown]="true" (onSelect)="onSelectRespondentType($event)" [placeholder]="'Selecione...'" [disabled]="!isNew" required></p-autoComplete>
-            <s-control-errors [control]="form.controls['_respondentTypeSelected']" [errorMessages]="{ required: 'Preenchimento obrigatório' }">
+              [dropdown]="true" (onSelect)="onSelectRespondentType($event)" [placeholder]="'application.combo_select'| translate" [disabled]="!isNew" required>
+            </p-autoComplete>
+            <s-control-errors [control]="form.controls['_respondentTypeSelected']" [errorMessages]="{ required: 'application.required' | translate }">
             </s-control-errors>
           </div>
         </div>
@@ -28,102 +29,95 @@
       <div class="ui-g" *ngIf="respondentTypeSelected === 'EMPLOYEE'">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="respondentIdentifier">Identificador</label>
+            <label for="respondentIdentifier">{{ 'respondent.respondentIdentifier' | translate }}</label>
             <input type="text" formControlName="respondentIdentifier" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="registration">Matrícula</label>
+            <label for="registration">{{ 'respondent.registration' | translate }}</label>
             <input type="text" formControlName="registration" name="registration" id="registration" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="name">Nome</label>
+            <label for="name">{{ 'application.name' | translate }}</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-              <div *ngIf="name.errors.required">
-                Nome é obrigatório.
-              </div>
+              <div *ngIf="name.errors.required">{{ 'validation.required' | translate }}</div>
               <div *ngIf="name.errors.minlength">
-                Nome deve conter no mínimo 3 caracteres.
-              </div>
+                {{ 'validation.minLength' | translate: {fieldName: 'application.name' | translate, min: name.errors.minlength.requiredLength } }}</div>
             </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="cpf">CPF</label>
+            <label for="cpf">{{ 'respondent.cpf' | translate }}</label>
             <input type="text" formControlName="cpf" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
             <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="error-message">
               <div *ngIf="cpf.errors.maxlength">
-                CPF deve conter no máximo 45 caracteres.
+                {{ 'validation.maxLength' | translate: {fieldName: 'respondent.cpf' | translate, max: cpf.errors.maxlength.requiredLength } }}
               </div>
             </div>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="phoneNumber">Telefone</label>
+            <label for="phoneNumber">{{ 'application.phone' | translate }}</label>
             <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="email">E-mail</label>
+            <label for="email">{{ 'application.email' | translate }}</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-              <div *ngIf="email.errors.required">
-                E-mail é obrigatório.
-              </div>
-              <div *ngIf="email.errors.email">
-                E-mail inválido.
-              </div>
+              <div *ngIf="email.errors.required">{{ 'validation.required' | translate }}</div>
+              <div *ngIf="email.errors.email">{{ 'validation.email' | translate }}</div>
             </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="admissionDate">Data Admissão</label>
+            <label for="admissionDate">{{ 'respondent.admissionDate' | translate }}</label>
             <p-calendar formControlName="admissionDate" name="admissionDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="admissionDate"
               [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="dismissalDate">Data Demissão</label>
+            <label for="dismissalDate">{{ 'respondent.dismissalDate' | translate }}</label>
             <p-calendar formControlName="dismissalDate" name="dismissalDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="dismissalDate"
               [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6">
-            <label for="dismissalCause">Causa Demissão</label>
+            <label for="dismissalCause">{{ 'respondent.dismissalCause' | translate }}</label>
             <input type="text" formControlName="dismissalCause" name="dismissalCause" id="dismissalCause" pInputText>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="companyId">Código Empresa</label>
+            <label for="companyId">{{ 'respondent.companyId' | translate }}</label>
             <input type="text" formControlName="companyId" name="companyId" id="companyId" pInputText>
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <label for="companyName">Nome Empresa</label>
+            <label for="companyName">{{ 'respondent.companyName' | translate }}</label>
             <input type="text" formControlName="companyName" name="companyName" id="companyName" pInputText>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="branchId">Código Filial</label>
+            <label for="branchId">{{ 'respondent.branchId' | translate }}</label>
             <input type="text" formControlName="branchId" name="branchId" id="branchId" pInputText>
           </div>
           <div class="ui-g-12 ui-md-9 ui-lg-9">
-            <label for="branchName">Nome Filial</label>
+            <label for="branchName">{{ 'respondent.branchName' | translate }}</label>
             <input type="text" formControlName="branchName" name="branchName" id="branchName" pInputText>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="workstationId">Posto de Trabalho</label>
+            <label for="workstationId">{{ 'respondent.workstationId' | translate }}</label>
             <input type="text" formControlName="workstationId" name="workstationId" id="workstationId" pInputText>
           </div>
           <div class="ui-g-12 ui-md-4 ui-lg-4">
-            <label for="educationLevel">Nível de Formação</label>
+            <label for="educationLevel">{{ 'respondent.educationLevel' | translate }}</label>
             <input type="text" formControlName="educationLevel" name="educationLevel" id="educationLevel" pInputText>
           </div>
           <div class="ui-g-12 ui-md-5 ui-lg-5">
-            <label for="positionName">Cargo</label>
+            <label for="positionName">{{ 'respondent.positionName' | translate }}</label>
             <input type="text" formControlName="positionName" name="positionName" id="positionName" pInputText>
           </div>
         </div>
@@ -132,37 +126,30 @@
       <div class="ui-g" *ngIf="respondentTypeSelected === 'VISITOR'">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
-            <label for="name">Nome</label>
+            <label for="name">{{ 'application.name' | translate }}</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-              <div *ngIf="name.errors.required">
-                Nome é obrigatório.
-              </div>
+              <div *ngIf="name.errors.required">{{ 'validation.required' | translate }}</div>
               <div *ngIf="name.errors.minlength">
-                Nome deve conter no mínimo 3 caracteres.
-              </div>
+                {{ 'validation.minLength' | translate: {fieldName: 'application.name' | translate, min: name.errors.minlength.requiredLength } }}</div>
             </div>
           </div>
           <div class="ui-g-12 ui-md-8 ui-lg-8 required">
-            <label for="email">E-mail</label>
+            <label for="email">{{ 'application.email' | translate }}</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-              <div *ngIf="email.errors.required">
-                E-mail é obrigatório.
-              </div>
-              <div *ngIf="email.errors.email">
-                E-mail inválido.
-              </div>
+              <div *ngIf="email.errors.required">{{ 'validation.required' | translate }}</div>
+              <div *ngIf="email.errors.email">{{ 'validation.email' | translate }}</div>
             </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-4 ui-lg-4 ">
-            <label for="phoneNumber">Telefone</label>
-            <input type="text" name="phoneNumber" formControlName="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+            <label for="phoneNumber">{{ 'application.phone' | translate }}</label>
+            <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="visitDate">Data da visita</label>
+            <label for="visitDate">{{ 'respondent.visitDate' | translate }}</label>
             <p-calendar formControlName="visitDate" name="visitDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="visitDate"
               [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>
@@ -170,7 +157,7 @@
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-12 ui-lg-12">
-            <label for="visitDescription">Descrição da visita</label>
+            <label for="visitDescription">{{ 'respondent.visitDescription' | translate }}</label>
             <textarea [rows]="5" [cols]="80" pInputTextarea formControlName="visitDescription" name="visitDescription" id="visitDescription"
               autoResize="autoResize"></textarea>
           </div>
@@ -180,32 +167,25 @@
       <div class="ui-g" *ngIf="respondentTypeSelected === 'CANDIDATE'">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
-            <label for="name">Nome</label>
+            <label for="name">{{ 'application.name' | translate }}</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-              <div *ngIf="name.errors.required">
-                Nome é obrigatório.
-              </div>
+              <div *ngIf="name.errors.required">{{ 'validation.required' | translate }}</div>
               <div *ngIf="name.errors.minlength">
-                Nome deve conter no mínimo 3 caracteres.
-              </div>
+                {{ 'validation.minLength' | translate: {fieldName: 'application.name' | translate, min: name.errors.minlength.requiredLength } }}</div>
             </div>
           </div>
           <div class="ui-g-12 ui-md-4 ui-lg-4 required">
-            <label for="email">E-mail</label>
+            <label for="email">{{ 'application.email' | translate }}</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-              <div *ngIf="email.errors.required">
-                E-mail é obrigatório.
-              </div>
-              <div *ngIf="email.errors.email">
-                E-mail inválido.
-              </div>
+              <div *ngIf="email.errors.required">{{ 'validation.required' | translate }}</div>
+              <div *ngIf="email.errors.email">{{ 'validation.email' | translate }}</div>
             </div>
           </div>
           <div class="ui-g-12 ui-md-4 ui-lg-4">
-            <label for="phoneNumber">Telefone</label>
-            <input type="text" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
+            <label for="phoneNumber">{{ 'application.phone' | translate }}</label>
+            <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
         </div>
       </div>
@@ -213,68 +193,61 @@
       <div class="ui-g" *ngIf="respondentTypeSelected === 'INTERN'">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="respondentType">Identificador</label>
+            <label for="respondentIdentifier">{{ 'respondent.respondentIdentifier' | translate }}</label>
             <input type="text" formControlName="respondentIdentifier" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="registration">Matrícula</label>
+            <label for="registration">{{ 'respondent.registration' | translate }}</label>
             <input type="text" formControlName="registration" name="registration" id="registration" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="name">Nome</label>
+            <label for="name">{{ 'application.name' | translate }}</label>
             <input type="text" formControlName="name" name="name" id="name" pInputText>
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-              <div *ngIf="name.errors.required">
-                Nome é obrigatório.
-              </div>
+              <div *ngIf="name.errors.required">{{ 'validation.required' | translate }}</div>
               <div *ngIf="name.errors.minlength">
-                Nome deve conter no mínimo 3 caracteres.
-              </div>
+                {{ 'validation.minLength' | translate: {fieldName: 'application.name' | translate, min: name.errors.minlength.requiredLength } }}</div>
             </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="cpf">CPF</label>
+            <label for="cpf">{{ 'respondent.cpf' | translate }}</label>
             <input type="text" formControlName="cpf" name="cpf" id="cpf" placeholder="000.000.000-00" pInputText>
             <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="error-message">
               <div *ngIf="cpf.errors.maxlength">
-                CPF deve conter no máximo 45 caracteres.
+                {{ 'validation.maxLength' | translate: {fieldName: 'respondent.cpf' | translate, max: cpf.errors.maxlength.requiredLength } }}
               </div>
             </div>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="phoneNumber">Telefone</label>
+            <label for="phoneNumber">{{ 'application.phone' | translate }}</label>
             <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="email">E-mail</label>
+            <label for="email">{{ 'application.email' | translate }}</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-              <div *ngIf="email.errors.required">
-                E-mail é obrigatório.
-              </div>
-              <div *ngIf="email.errors.email">
-                E-mail inválido.
-              </div>
+              <div *ngIf="email.errors.required">{{ 'validation.required' | translate }}</div>
+              <div *ngIf="email.errors.email">{{ 'validation.email' | translate }}</div>
             </div>
           </div>
         </div>
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="admissionDate">Data Admissão</label>
-            <p-calendar formControlName="admissionDate" name="admissionDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="admissionDate"
+            <label for="dismissalDate">{{ 'respondent.dismissalDate' | translate }}</label>
+            <p-calendar formControlName="dismissalDate" name="dismissalDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="dismissalDate"
               [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="experienceContractExpiration1">Vencimento 1 contrato exp.</label>
+            <label for="experienceContractExpiration1">{{ 'respondent.experienceContractExpiration1' | translate }}</label>
             <p-calendar formControlName="experienceContractExpiration1" name="experienceContractExpiration1" showButtonBar="true" placeholder="DD/MM/AAAA"
               [showIcon]="true" id="experienceContractExpiration1" [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="experienceContractExpiration2">Vencimento 2 contrato exp.</label>
+            <label for="experienceContractExpiration2">{{ 'respondent.experienceContractExpiration2' | translate }}</label>
             <p-calendar formControlName="experienceContractExpiration2" name="experienceContractExpiration2" showButtonBar="true" placeholder="DD/MM/AAAA"
               [showIcon]="true" id="experienceContractExpiration2" [locale]="pt" [dateFormat]="'dd/mm/yy'">
             </p-calendar>

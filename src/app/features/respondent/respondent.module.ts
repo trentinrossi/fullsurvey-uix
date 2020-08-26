@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -48,7 +49,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     AutoCompleteEnumModule,
     MessagesModule,
     ControlErrorsModule,
-    CalendarModule
+    CalendarModule,
+    TranslateModule
   ]
 })
 export class RespondentModule { }
