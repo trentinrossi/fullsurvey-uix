@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,9 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-  title = 'fullsurvey-uix';
-
-  constructor() { }
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('pt-BR');
+  }
 
   ngOnInit(): void {
   }

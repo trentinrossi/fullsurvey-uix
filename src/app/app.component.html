@@ -1,4 +1,4 @@
-<s-analytics-header headerTitle="Gestão de pesquisas"></s-analytics-header>
+<s-analytics-header [headerTitle]="'application.title' | translate"></s-analytics-header>
 <s-loading-state [loading]="false" [blockWindow]="true">
   <p-toast [baseZIndex]="5000"></p-toast>
   <router-outlet></router-outlet>

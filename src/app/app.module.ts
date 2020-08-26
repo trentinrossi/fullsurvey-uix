@@ -3,7 +3,7 @@ import { ConfirmationService } from 'primeng/api';
 import { NotificationModule } from './shared/messages/notification.module';
 import { NotificationService } from './shared/messages/notification.service';
 import { AppRoutingModule } from './app-routing.module';
-import ptBr from '@angular/common/locales/pt';
+// import ptBr from '@angular/common/locales/pt';
 
 import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,12 +17,13 @@ import { AnalyticsHeaderModule, SBadgeModule } from '@senior-gestao-pessoas/angu
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { LoadingStateModule, LocaleModule } from '@seniorsistemas/angular-components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { default as fallback } from '../locale/pt-BR.json';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-registerLocaleData(ptBr);
+// registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -39,15 +40,19 @@ registerLocaleData(ptBr);
     ToastModule,
     NotificationModule.forRoot(),
 
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     MessageService,
     ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
-    {
-      provide: LocationStrategy, useClass: HashLocationStrategy
-    },
+    // { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
@@ -57,3 +62,8 @@ registerLocaleData(ptBr);
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
