@@ -18,7 +18,7 @@ export class RespondentComponent implements OnInit {
   home: MenuItem;
 
   totalElements: number;
-  loading: boolean;
+  loading = false;
   respondents: Respondent[];
   respondentSelected: Respondent;
   errorMessage: string;
@@ -53,6 +53,8 @@ export class RespondentComponent implements OnInit {
         this.totalElements = resp.totalElements;
         this.loading = false;
       }, (error => {
+        this.loading = false;
+        this.hasErrors = true;
         this.errorHandler.handleError(error);
         this.errorMessage = error.errorMessage;
       }));
@@ -137,6 +139,7 @@ export class RespondentComponent implements OnInit {
         this.totalElements = resp.totalElements;
         this.loading = false;
       }, (error => {
+        this.loading = false;
         this.errorHandler.handleError(error);
         this.errorMessage = error.errorMessage;
       }));

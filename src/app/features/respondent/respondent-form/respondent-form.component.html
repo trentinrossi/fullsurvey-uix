@@ -28,12 +28,12 @@
       <div class="ui-g" *ngIf="respondentTypeSelected === 'EMPLOYEE'">
         <div class="ui-g-12">
           <div class="ui-g-12 ui-md-3 ui-lg-3">
-            <label for="respondentType">Identificador</label>
+            <label for="respondentIdentifier">Identificador</label>
             <input type="text" formControlName="respondentIdentifier" name="respondentIdentifier" id="respondentIdentifier" pInputText disabled>
           </div>
           <div class="ui-g-12 ui-md-3 ui-lg-3">
             <label for="registration">Matrícula</label>
-            <input type="text" formControlName="registration" name="registration" id="registration" required pInputText>
+            <input type="text" formControlName="registration" name="registration" id="registration" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
             <label for="name">Nome</label>
@@ -63,7 +63,7 @@
             <input type="text" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="(000) 00000-0000" pInputText>
           </div>
           <div class="ui-g-12 ui-md-6 ui-lg-6 required">
-            <label for="cpf">E-mail</label>
+            <label for="email">E-mail</label>
             <input type="text" formControlName="email" name="email" id="email" pInputText>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
               <div *ngIf="email.errors.required">

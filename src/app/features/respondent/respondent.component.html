@@ -12,10 +12,10 @@
       <div class="ui-g-12">
         <div class="ui-lg-12 ui-md-12 ui-sm-12">
           <div class="ui-g">
-            <p-confirmDialog header="Confirmação" [style]="{width: '50vw'}"></p-confirmDialog>
             <s-button [label]="'Adicionar'" priority="primary" (click)="new()"></s-button>
+            <p-confirmDialog header="Confirmação" [style]="{width: '50vw'}"></p-confirmDialog>
             <p-table [value]="respondents" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
-              [totalRecords]="totalElements" (onPage)="paginate($event)" #dt>
+              [totalRecords]="totalElements" (onPage)="paginate($event)" #dt *ngIf="totalElements !== 0">
               <ng-template pTemplate="caption">
                 <div style="text-align: left">
                   <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -59,7 +59,7 @@
             [description]="errorMessage">
           </s-empty-state>
 
-          <s-empty-state *ngIf="respondents && respondents.length === 0" [title]="'Nenhum respondente cadastrado'"
+          <s-empty-state *ngIf="totalElements === 0" [title]="'Nenhum respondente cadastrado'"
             [description]="'Clique no botão Adicionar para cadastrar um novo respondente'">
           </s-empty-state>
 
