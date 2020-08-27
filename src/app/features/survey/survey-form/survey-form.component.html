@@ -4,15 +4,34 @@
     <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
   </h1>
 
+  <div class="ui-fluid">
+    <s-steps [steps]="items" [activeIndex]="activeStep" (stepSelected)="onStepClick($event)"></s-steps>
+  </div>
+
   <p-panel class="ui-fluid">
     <p-header>
       {{ 'survey.list_title' | translate }}
     </p-header>
     <div class="ui-g">
       <div class="ui-g-12">
-        <p-steps [model]="items"></p-steps>
       </div>
     </div>
   </p-panel>
+
+  <div style="margin-top: 10px;">
+    <p-panel class="ui-fluid" [showHeader]="false">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-1 ui-sm-4">
+          <s-button [label]="'application.previous' | translate" priority="secondary" iconClass="fa fa-arrow-left" (click)="previous($event)"></s-button>
+        </div>
+        <div class="ui-g-12 ui-md-1 ui-sm-4">
+          <s-button [label]="'application.cancel' | translate" priority="link"></s-button>
+        </div>
+        <div class="ui-g-12 ui-md-1 ui-md-offset-9 ui-sm-4">
+          <s-button [label]="'application.next' | translate" priority="primary" rightIconClass="fa fa-arrow-right" (click)="next($event)"></s-button>
+        </div>
+      </div>
+    </p-panel>
+  </div>
 
 </div>

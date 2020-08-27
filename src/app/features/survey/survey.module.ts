@@ -7,11 +7,11 @@ import { CommonModule } from '@angular/common';
 import { SurveyRoutingModule } from './survey-routing.module';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
 
-import { StepsModule } from 'primeng/steps';
+import { StepsModule, ObjectCardModule, ButtonModule } from '@seniorsistemas/angular-components';
 import { SurveyComponent } from './survey.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
-import { ButtonModule, EmptyStateModule, LoadingStateModule } from '@seniorsistemas/angular-components';
+import { EmptyStateModule, LoadingStateModule } from '@seniorsistemas/angular-components';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
@@ -30,7 +30,6 @@ import { SBadgeModule } from '@senior-gestao-pessoas/angular-components';
     FormsModule,
     ReactiveFormsModule,
     TableModule,
-    ButtonModule,
     EmptyStateModule,
     LoadingStateModule,
     DialogModule,
@@ -38,6 +37,8 @@ import { SBadgeModule } from '@senior-gestao-pessoas/angular-components';
     ToastModule,
     ConfirmDialogModule,
     SBadgeModule,
+    ObjectCardModule,
+    ButtonModule
   ]
 })
 export class SurveyModule { }

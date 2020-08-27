@@ -1,8 +1,9 @@
 import { SurveyService } from './../survey.service';
 import { MenuItem, ConfirmationService, MessageService } from 'primeng/api';
-import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { Component, OnInit, ErrorHandler, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Step, StepState, StepsComponent } from '@seniorsistemas/angular-components';
 
 @Component({
   selector: 'app-survey-form',
@@ -11,9 +12,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SurveyFormComponent implements OnInit {
 
+  @ViewChild(StepsComponent, { static: false }) step: Step;
   breadcrumbItems: MenuItem[];
   home: MenuItem;
-  items: MenuItem[];
+  items: Step[];
+  formTitle: string;
+  activeStep: number;
 
   constructor(
     private service: SurveyService,
@@ -25,18 +29,35 @@ export class SurveyFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.activeStep = 0;
+
     this.breadcrumbItems = [
-      { label: this.translate.instant('application.title'), disabled: true },
-      { label: this.translate.instant('survey.list_title'), disabled: false, routerLink: '/respondent' },
+      { label: this.translate.instant('application.title'), disabled: false },
+      { label: this.translate.instant('survey.list_title'), disabled: false, routerLink: '/survey' },
       { label: this.translate.instant('survey.title'), disabled: true },
     ];
     this.home = { icon: 'pi pi-home', url: 'https://platform.senior.com.br/senior-x/' };
 
     this.items = [
-      { label: 'Step 1' },
-      { label: 'Step 2' },
-      { label: 'Step 3' }
+      { id: '0', label: this.translate.instant('survey.basic_data') },
+      { id: '1', label: this.translate.instant('survey.subjects') },
+      { id: '2', label: this.translate.instant('survey.questions') },
+      { id: '3', label: this.translate.instant('survey.respondents') },
+      { id: '4', label: this.translate.instant('survey.collect_answers') }
     ];
+  }
+
+  next() {
+    this.activeStep++;
+  }
+
+  previous() {
+    this.activeStep--;
+  }
+
+  onStepClick(event) {
+    console.log(event);
+    this.step.state = StepState.Warning;
   }
 
 }
