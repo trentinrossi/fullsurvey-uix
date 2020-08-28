@@ -8,27 +8,26 @@
     <s-steps [steps]="items" [activeIndex]="activeStep" (stepSelected)="onStepClick($event)"></s-steps>
   </div>
 
-  <p-panel class="ui-fluid">
-    <p-header>
-      {{ 'survey.list_title' | translate }}
-    </p-header>
-    <div class="ui-g">
-      <div class="ui-g-12">
-      </div>
-    </div>
-  </p-panel>
+  <div [ngSwitch]="activeStep">
+    <app-survey-basic *ngSwitchCase="0"></app-survey-basic>
+    <app-survey-subjects *ngSwitchCase="1"></app-survey-subjects>
+    <app-survey-questions *ngSwitchCase="2"></app-survey-questions>
+    <app-survey-respondents *ngSwitchCase="3"></app-survey-respondents>
+    <app-survey-getanswers *ngSwitchCase="4"></app-survey-getanswers>
+  </div>
 
   <div style="margin-top: 10px;">
     <p-panel class="ui-fluid" [showHeader]="false">
       <div class="ui-g">
         <div class="ui-g-12 ui-md-1 ui-sm-4">
-          <s-button [label]="'application.previous' | translate" priority="secondary" iconClass="fa fa-arrow-left" (click)="previous($event)"></s-button>
+          <s-button [label]="'application.previous' | translate" [disabled]="activeStep === 0" priority="secondary" iconClass="fa fa-arrow-left"
+            (click)="previous($event)"></s-button>
         </div>
         <div class="ui-g-12 ui-md-1 ui-sm-4">
           <s-button [label]="'application.cancel' | translate" priority="link"></s-button>
         </div>
         <div class="ui-g-12 ui-md-1 ui-md-offset-9 ui-sm-4">
-          <s-button [label]="this.labelButtonNext" priority="primary" rightIconClass="fa fa-arrow-right" (click)="next($event)"></s-button>
+          <s-button [label]="this.labelButtonNext" priority="primary" [rightIconClass]="iconButtonNext" (click)="next($event)"></s-button>
         </div>
       </div>
     </p-panel>

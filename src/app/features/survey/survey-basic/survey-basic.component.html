@@ -1,0 +1,76 @@
+<form [formGroup]="form">
+
+  <p-panel class="ui-fluid">
+    <p-header>
+      {{ 'survey.basic_data' | translate }}
+    </p-header>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-6 ui-lg-6 required">
+          <label for="name">{{ 'survey.name' | translate }}</label>
+          <input type="text" formControlName="name" name="name" id="name" pInputText>
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+            <div *ngIf="name.errors.required">{{ 'validation.required' | translate }}</div>
+            <div *ngIf="name.errors.minlength">
+              {{ 'validation.minLength' | translate: {fieldName: 'survey.name' | translate, min: name.errors.minlength.requiredLength } }}</div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-lg-3">
+          <label for="anonymous">{{ 'survey.anonymous' | translate }}</label>
+          <p-inputSwitch formControlName="anonymous" pTooltip="Define se será possível identificar os respondentes na análise das respostas"
+            tooltipPosition="top"></p-inputSwitch>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <label for="objective">{{ 'survey.objective' | translate }}</label>
+          <textarea [rows]="5" [cols]="80" pInputTextarea formControlName="objective" name="objective" id="objective" autoResize="autoResize"></textarea>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-3 ui-lg-3">
+          <label for="responseTime">{{ 'survey.responseTime' | translate }}</label>
+          <input type="number" formControlName="responseTime" name="responseTime" id="responseTime" pInputText
+            pTooltip="Tempo que o respondente terá disponível para responder a pesquisa">
+          <div *ngIf="responseTime.invalid && (responseTime.dirty || responseTime.touched)" class="error-message">
+            <div *ngIf="responseTime.errors.max">
+              {{ 'validation.max' | translate: {fieldName: 'survey.responseTime' | translate, max: responseTime.errors.max.max } }}</div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-lg-3">
+          <label for="initialDate">{{ 'survey.initialDate' | translate }}</label>
+          <p-calendar formControlName="initialDate" name="initialDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="initialDate"
+            [locale]="pt" [dateFormat]="'dd/mm/yy'">
+          </p-calendar>
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-lg-3">
+          <label for="expirationDate">{{ 'survey.expirationDate' | translate }}</label>
+          <p-calendar formControlName="expirationDate" name="expirationDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="expirationDate"
+            [locale]="pt" [dateFormat]="'dd/mm/yy'" pTooltip="Após esta data não serão mais aceitas respostas">
+          </p-calendar>
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-6 ui-lg-6">
+          <label for="instructorName">{{ 'survey.instructorName' | translate }}</label>
+          <input type="text" formControlName="instructorName" name="instructorName" id="instructorName" pInputText>
+          <div *ngIf="instructorName.invalid && (instructorName.dirty || instructorName.touched)" class="error-message">
+            <div *ngIf="instructorName.errors.maxlength">
+              {{ 'validation.maxLength' | translate: {fieldName: 'survey.instructorName' | translate, max: instructorName.errors.maxlength.requiredLength } }}
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-6">
+          <label for="evaluatorName">{{ 'survey.evaluatorName' | translate }}</label>
+          <input type="text" formControlName="evaluatorName" name="evaluatorName" id="evaluatorName" pInputText>
+          <div *ngIf="evaluatorName.invalid && (evaluatorName.dirty || evaluatorName.touched)" class="error-message">
+            <div *ngIf="evaluatorName.errors.maxlength">
+              {{ 'validation.maxLength' | translate: {fieldName: 'survey.evaluatorName' | translate, max: evaluatorName.errors.maxlength.requiredLength } }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+
+</form>

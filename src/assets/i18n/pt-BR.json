@@ -36,6 +36,7 @@
   },
   "validation": {
     "required": "Preenchimento obrigatório",
+    "max": "Valor máximo permitido para {{fieldName}} é de {{max}}",
     "minLength": "{{fieldName}} deve ter no mínimo {{min}} caracteres",
     "maxLength": "{{fieldName}} deve ter no máximo {{max}} caracteres",
     "email": "E-mail informado é inválido"
@@ -84,11 +85,20 @@
     "list_title": "Lista de Pesquisas Cadastradas",
     "empty": "Nenhuma pesquisa cadastrada",
     "add_new": "Clique no botão Adicionar para cadastrar uma nova pesquisa",
+    "name": "Nome da pesquisa",
     "basic_data": "Dados básicos",
     "subjects": "Assuntos",
     "questions": "Perguntas",
     "respondents": "Respondentes",
-    "collect_answers": "Coletar respostas"
+    "collect_answers": "Coletar respostas",
+    "anonymous": "Pesquisa anônima",
+    "objective": "Objetivo",
+    "initialDate": "Data de início",
+    "expirationDate": "Data de expiração",
+    "expirationTooltip": "Após esta data não serão mais aceitas respostas",
+    "responseTime": "Tempo para resposta (em minutos)",
+    "instructorName": "Nome do instrutor",
+    "evaluatorName": "Nome do avaliador"
   },
   "subject": {
     "title": "Assunto"

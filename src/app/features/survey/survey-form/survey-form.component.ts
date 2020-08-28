@@ -19,6 +19,7 @@ export class SurveyFormComponent implements OnInit {
   formTitle: string;
   activeStep: number;
   labelButtonNext: string;
+  iconButtonNext: string;
 
   constructor(
     private service: SurveyService,
@@ -32,6 +33,7 @@ export class SurveyFormComponent implements OnInit {
   ngOnInit() {
     this.activeStep = 0;
     this.labelButtonNext = this.translate.instant('application.next');
+    this.iconButtonNext = 'fa fa-arrow-right';
 
     this.breadcrumbItems = [
       { label: this.translate.instant('application.title'), disabled: false },
@@ -50,8 +52,12 @@ export class SurveyFormComponent implements OnInit {
   }
 
   next() {
-    if (this.activeStep === 4) {
+    console.log(this.activeStep);
+
+    if (this.activeStep >= 3) {
       this.labelButtonNext = this.translate.instant('application.finish');
+      this.iconButtonNext = 'fa fa-check';
+      this.activeStep = 4;
     } else {
       this.activeStep++;
     }
@@ -60,12 +66,26 @@ export class SurveyFormComponent implements OnInit {
   previous() {
     if (this.activeStep > 0) {
       this.activeStep--;
+      if (this.activeStep <= 3) {
+        this.labelButtonNext = this.translate.instant('application.next');
+        this.iconButtonNext = 'fa fa-arrow-right';
+      }
     }
   }
 
   onStepClick(event) {
     console.log(event);
-    this.step.state = StepState.Warning;
+    // this.step.state = StepState.Warning;
+    this.activeStep = event.index;
+
+    if (this.activeStep >= 3) {
+      this.labelButtonNext = this.translate.instant('application.finish');
+      this.iconButtonNext = 'fa fa-check';
+      this.activeStep = 4;
+    } else {
+      this.labelButtonNext = this.translate.instant('application.next');
+      this.iconButtonNext = 'fa fa-arrow-right';
+    }
   }
 
 }
