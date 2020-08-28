@@ -18,6 +18,7 @@ export class SurveyFormComponent implements OnInit {
   items: Step[];
   formTitle: string;
   activeStep: number;
+  labelButtonNext: string;
 
   constructor(
     private service: SurveyService,
@@ -30,6 +31,7 @@ export class SurveyFormComponent implements OnInit {
 
   ngOnInit() {
     this.activeStep = 0;
+    this.labelButtonNext = this.translate.instant('application.next');
 
     this.breadcrumbItems = [
       { label: this.translate.instant('application.title'), disabled: false },
@@ -48,11 +50,17 @@ export class SurveyFormComponent implements OnInit {
   }
 
   next() {
-    this.activeStep++;
+    if (this.activeStep === 4) {
+      this.labelButtonNext = this.translate.instant('application.finish');
+    } else {
+      this.activeStep++;
+    }
   }
 
   previous() {
-    this.activeStep--;
+    if (this.activeStep > 0) {
+      this.activeStep--;
+    }
   }
 
   onStepClick(event) {
