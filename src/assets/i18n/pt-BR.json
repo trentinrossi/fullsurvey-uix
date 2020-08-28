@@ -101,7 +101,13 @@
     "evaluatorName": "Nome do avaliador"
   },
   "subject": {
-    "title": "Assunto"
+    "new": "Novo assunto",
+    "edit": "Alterar assunto",
+    "title": "Assunto",
+    "title_form": "Cadastro de Assuntos",
+    "list_title": "Lista de Assuntos Cadastrados",
+    "empty": "Nenhum assunto cadastrado",
+    "add_new": "Clique no botão Adicionar para cadastrar um novo assunto"
   },
 
   "platform.filter_service.find_suggestions_error": "Ocorreu um erro ao executar a sua solicitação. É necessário contatar o Administrador do sistema",

@@ -1,54 +1,69 @@
 <div class="sds-container" id="page-content">
   <h1 class="sds-page-title">
-    <span id="sds-page-title">Assuntos</span>
-    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    <span id="sds-page-title">{{ 'subject.title' | translate }}</span>
+    <p-breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
   </h1>
 
-  <p-panel>
+  <p-panel class="ui-fluid">
     <p-header>
-      Lista de assuntos cadastrados
+      {{ 'subject.list_title' | translate }}
     </p-header>
     <div class="ui-g">
       <div class="ui-g-12">
         <div class="ui-lg-12 ui-md-12 ui-sm-12">
           <div class="ui-g">
-            <p-table [value]="">
+            <p-confirmDialog [header]="'application.confirm' | translate" [style]="{width: '50vw'}"></p-confirmDialog>
+            <s-button [label]="'application.add' | translate" priority="primary" (click)="new()"></s-button>
+            <p-table [value]="subjects" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
+              [totalRecords]="totalElements" (onPage)="paginate($event)" #dt>
+              <!-- <ng-template pTemplate="caption">
+                <div style="text-align: left">
+                  <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                  <input type="text" pInputText size="50" placeholder="Pesquise pelo nome..." (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+              </ng-template> -->
               <ng-template pTemplate="header">
                 <tr>
-                  <th>{{ 'Nome' }}</th>
+                  <th>{{ 'category.title' | translate }}</th>
+                  <th>{{ 'application.name' | translate }}</th>
                   <th width="150">
-                    <s-button [label]="'Adicionar'" priority="primary"></s-button>
+                    {{ 'application.actions' | translate }}
                   </th>
                 </tr>
               </ng-template>
 
-              <ng-template pTemplate="body" let-subject>
+              <ng-template pTemplate="body" let-rowdata>
                 <tr>
                   <td>
-                    {{ subject.name }}
+                    {{ rowdata.category.name }}
                   </td>
                   <td>
-                    <s-button label="Ações" priority="default" [auxiliary]="true"></s-button>
+                    {{ rowdata.name }}
+                  </td>
+                  <td>
+                    <s-button [label]="'application.actions' | translate" priority="default" [auxiliary]="true" [model]="getActions(rowdata)"></s-button>
                   </td>
                 </tr>
+              </ng-template>
+              <ng-template pTemplate="paginatorright">
+                <label for="">{{ 'application.total_found_records' | translate:{'totalElements': totalElements} }} </label>
               </ng-template>
             </p-table>
           </div>
         </div>
         <div class="ui-lg-12 error-container">
-              <!-- <s-empty-state *ngIf="true" [title]="'titulo'"
-                [primaryActionLabel]="'platform.ecm_ged.content_try_again'" (primaryAction)="refresh()"
-                [description]="'platform.ecm_ged.content_files_load_error'">
-              </s-empty-state> -->
+          <s-empty-state *ngIf="hasErrors" [title]="'application.error.something_is_wrong' | translate" [primaryActionLabel]="'application.retry' | translate"
+            (primaryAction)="refresh()" [description]="errorMessage">
+          </s-empty-state>
 
-              <s-empty-state *ngIf="true" [title]="'Nenhum assunto cadastrado'"
-                [description]="'Clique no botão Adicionar para cadastrar um novo assuntos'">
-              </s-empty-state>
+          <s-empty-state *ngIf="subjects && subjects.length === 0" [title]="'subject.empty' | translate" [description]="'subject.add_new' | translate">
+          </s-empty-state>
 
-              <s-loading-state [loading]="false"></s-loading-state>
-            </div>
+          <s-loading-state [loading]="loading"></s-loading-state>
+        </div>
       </div>
     </div>
 
+    <app-subject-form [subject]="subjectSelected" (refreshData)="updateRecords($event)"></app-subject-form>
   </p-panel>
 </div>

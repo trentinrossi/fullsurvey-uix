@@ -1,0 +1,30 @@
+<p-dialog [(visible)]="showModal" appendTo="body" [header]="title" [modal]="true" [blockScroll]="true" [draggable]="false" styleClass="s-modal"
+  [closable]="true" closeIcon="fa fa-times" [autoZIndex]="true" [closeOnEscape]="true">
+  <div class="ui-g-12">
+    <form [formGroup]="form" autocomplete="off">
+      <div class="required">
+        <label for="categoryId" required>{{ 'category.title' | translate }}</label>
+        <p-autoComplete
+          [suggestions]="categories"
+          formControlName="category"
+          id="categoryId"
+          dataKey="id"
+          field="name"
+          (completeMethod)="searchCategories($event)"
+          (onSelect)="categorySelected($event)"
+          [dropdown]="true"
+          ></p-autoComplete>
+      </div>
+      <div class="required">
+        <label for="name" required>{{ 'application.name' | translate }}</label>
+        <input pInputText id="name" type="text" name="name" size="50" formControlName="name" pInputText [placeholder]="'Ex: Palestrante'" />
+      </div>
+    </form>
+  </div>
+  <p-footer>
+    <div class="footer">
+      <s-button [label]="'application.save' | translate" priority="primary" [disabled]="form.invalid" (onClick)="save()"></s-button>
+      <s-button [label]="'application.cancel' | translate" priority="secondary" (onClick)="cancel()"></s-button>
+    </div>
+  </p-footer>
+</p-dialog>
