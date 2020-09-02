@@ -64,6 +64,6 @@
       </div>
     </div>
 
-    <app-subject-form [subject]="subjectSelected" (refreshData)="updateRecords($event)"></app-subject-form>
+    <app-subject-form *ngIf="displayModal" [subject]="subjectSelected" [(display)]="displayModal" (displayChange)="updateRecords($event)"></app-subject-form>
   </p-panel>
 </div>

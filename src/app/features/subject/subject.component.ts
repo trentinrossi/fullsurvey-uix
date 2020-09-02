@@ -24,6 +24,7 @@ export class SubjectComponent implements OnInit {
   errorMessage: string;
   hasErrors: boolean;
   currentPage: number;
+  displayModal = false;
 
   constructor(
     private service: SubjectService,
@@ -60,10 +61,6 @@ export class SubjectComponent implements OnInit {
       }));
   }
 
-  toggleModal() {
-    this.subjectModal.showModal = !this.subjectModal.showModal;
-  }
-
   getActions(subject: Subject): MenuItem[] {
     return [
       {
@@ -72,7 +69,7 @@ export class SubjectComponent implements OnInit {
         label: this.translate.instant('application.edit'),
         command: () => {
           this.subjectSelected = subject;
-          this.toggleModal();
+          this.displayModal = true;
         }
       },
       {
@@ -105,9 +102,8 @@ export class SubjectComponent implements OnInit {
   }
 
   new() {
-    this.subjectModal.form.reset();
     this.subjectSelected = undefined;
-    this.toggleModal();
+    this.displayModal = true;
   }
 
   paginate(event: { first: number; rows: number; }) {
@@ -116,6 +112,8 @@ export class SubjectComponent implements OnInit {
 
   updateRecords() {
     this.loading = true;
+    console.log('Atualizando grid...');
+
     this.service.findAll(this.currentPage, 5, '')
       .subscribe(resp => {
         console.log(resp.content);

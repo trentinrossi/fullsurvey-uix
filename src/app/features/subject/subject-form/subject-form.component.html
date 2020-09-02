@@ -1,5 +1,17 @@
-<p-dialog [(visible)]="showModal" appendTo="body" [header]="title" [modal]="true" [blockScroll]="true" [draggable]="false" styleClass="s-modal"
-  [closable]="true" closeIcon="fa fa-times" [autoZIndex]="true" [closeOnEscape]="true">
+<p-dialog
+  [(visible)]="display"
+  appendTo="body"
+  [header]="title"
+  [modal]="true"
+  [responsive]="true"
+  [blockScroll]="true"
+  [draggable]="false"
+  styleClass="s-modal"
+  [closable]="true"
+  closeIcon="fa fa-times"
+  [autoZIndex]="true"
+  [closeOnEscape]="true"
+>
   <div class="ui-g-12">
     <form [formGroup]="form" autocomplete="off">
       <div class="required">
@@ -7,12 +19,11 @@
         <p-autoComplete
           [suggestions]="categories"
           formControlName="category"
-          id="categoryId"
-          dataKey="id"
           field="name"
           (completeMethod)="searchCategories($event)"
           (onSelect)="categorySelected($event)"
           [dropdown]="true"
+          [minLength]="3"
           ></p-autoComplete>
       </div>
       <div class="required">

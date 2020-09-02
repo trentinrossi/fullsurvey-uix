@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { SubjectService } from './../subject.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subject } from './../subject.model.';
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CategoryService } from '../../category/category.service';
 
 @Component({
@@ -12,18 +12,27 @@ import { CategoryService } from '../../category/category.service';
   templateUrl: './subject-form.component.html',
   styleUrls: ['./subject-form.component.scss']
 })
-export class SubjectFormComponent implements OnInit, OnChanges {
+export class SubjectFormComponent implements OnInit {
 
   @Input() subject: Subject;
   @Output() refreshData = new EventEmitter();
+  @Output() displayChange = new EventEmitter<boolean>();
+  @Input()
+  get display() {
+    return this.displayValue;
+  }
+  set display(value) {
+    this.displayValue = value;
+    this.displayChange.emit(value);
+  }
 
-  showModal = false;
-  form: FormGroup;
+  private displayValue: boolean;
   title: string;
   categories: Category[];
+  form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private service: SubjectService,
     private message: MessageService,
     private translate: TranslateService,
@@ -31,61 +40,44 @@ export class SubjectFormComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    console.log(this.subject);
+    this.form = this.getFormGroup();
 
-    // this.searchCategories();
+    if (this.subject) {
+      this.form.patchValue(this.subject);
+      this.form.controls.categoryId.setValue(this.subject.category.id);
+      this.title = this.translate.instant('subject.edit');
+    } else {
+      this.title = this.translate.instant('subject.new');
+    }
+  }
 
-    this.form = this.fb.group({
+  private getFormGroup() {
+    return this.formBuilder.group({
       id: [],
-      category: this.fb.group({
-        id: [],
-        name: []
-      }),
+      category: [],
       name: [, [Validators.required, Validators.maxLength(100)]],
       categoryId: []
     });
   }
 
-  ngOnChanges() {
-    console.log(this.subject);
-    if (this.form) {
-      this.form.reset();
-      this.form.setValue({
-        id: this.subject ? this.subject.id : '',
-        category: this.subject ? this.subject.category : '',
-        name: this.subject ? this.subject.name : '',
-        categoryId: this.subject ? this.subject.category.id : ''
-      });
-      console.log('Aplicando valores: ' + this.form);
-      console.log(this.form);
-
-    }
-    this.title = !this.subject ? this.translate.instant('subject.new') : this.translate.instant('subject.edit');
-  }
-
   get formControls() { return this.form.controls; }
 
   searchCategories(event) {
-    console.log(event);
-
     this.categoryService.findAll(0, 1000, '').subscribe(data => {
       this.categories = data.content;
     });
   }
 
   categorySelected(event) {
-    console.log(event);
-
-    this.form.controls.categoryId.setValue(event.value.id);
+    this.form.controls.categoryId.setValue(event.id);
   }
 
   cancel() {
-    this.showModal = false;
+    this.display = false;
   }
 
   save() {
     this.subject ? this.edit() : this.addNew();
-    console.log(this.form.controls.name.value);
   }
 
   addNew() {
