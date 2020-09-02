@@ -15,7 +15,6 @@ import { CategoryService } from '../../category/category.service';
 export class SubjectFormComponent implements OnInit {
 
   @Input() subject: Subject;
-  @Output() refreshData = new EventEmitter();
   @Output() displayChange = new EventEmitter<boolean>();
   @Input()
   get display() {
@@ -62,7 +61,7 @@ export class SubjectFormComponent implements OnInit {
 
   get formControls() { return this.form.controls; }
 
-  searchCategories(event) {
+  searchCategories() {
     this.categoryService.findAll(0, 1000, '').subscribe(data => {
       this.categories = data.content;
     });
@@ -84,7 +83,6 @@ export class SubjectFormComponent implements OnInit {
     this.service.insert(this.form.value)
       .subscribe(() => {
         this.message.add({ severity: 'success', detail: this.translate.instant('application.new_success') });
-        this.returnChanged();
       }, (error => {
         this.message.add({ severity: 'error', summary: this.translate.instant('application.new_error'), detail: `${error}` });
       }));
@@ -95,15 +93,10 @@ export class SubjectFormComponent implements OnInit {
     this.service.update(this.subject.id, this.form.value)
       .subscribe(() => {
         this.message.add({ severity: 'success', detail: this.translate.instant('application.edit_success') });
-        this.returnChanged();
       }, (error => {
         this.message.add({ severity: 'error', summary: this.translate.instant('application.edit_error'), detail: `${error}` });
       }));
     this.cancel();
-  }
-
-  returnChanged() {
-    this.refreshData.emit(this.form.value);
   }
 
 }

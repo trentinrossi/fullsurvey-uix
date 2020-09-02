@@ -116,8 +116,6 @@ export class SubjectComponent implements OnInit {
 
     this.service.findAll(this.currentPage, 5, '')
       .subscribe(resp => {
-        console.log(resp.content);
-
         this.subjects = resp.content;
         this.totalElements = resp.totalElements;
         this.loading = false;
