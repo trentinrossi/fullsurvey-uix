@@ -12,11 +12,12 @@
   [autoZIndex]="true"
   [closeOnEscape]="true"
 >
-  <div class="ui-g-12">
+  <div class="ui-g-12 ui-fluid">
     <form [formGroup]="form" autocomplete="off">
       <div class="required">
         <label for="categoryId" required>{{ 'category.title' | translate }}</label>
         <p-autoComplete
+          appendTo="body"
           [suggestions]="categories"
           formControlName="category"
           field="name"
