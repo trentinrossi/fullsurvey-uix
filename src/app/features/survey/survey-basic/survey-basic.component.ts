@@ -1,5 +1,9 @@
+import { SurveyService } from './../survey.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import moment from 'moment';
 
 @Component({
   selector: 'app-survey-basic',
@@ -11,9 +15,14 @@ export class SurveyBasicComponent implements OnInit {
   @Output() formStatus = new EventEmitter();
   form: FormGroup;
   pt: any;
+  isNew = false;
+  title = '';
 
   constructor(
-    private fb: FormBuilder
+    private formBuilder: FormBuilder,
+    private service: SurveyService,
+    private route: ActivatedRoute,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -31,9 +40,39 @@ export class SurveyBasicComponent implements OnInit {
       weekHeader: 'Semana'
     };
 
-    this.form = this.fb.group({
+    this.form = this.getFormGroup();
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id !== 'new') {
+      this.title = this.translate.instant('survey.edit');
+      this.service.find(id).subscribe(survey => {
+        this.form.patchValue(survey);
+        this.convertDateFromAPI();
+        console.log(this.form);
+      });
+    } else {
+      this.isNew = true;
+      this.title = this.translate.instant('survey.new');
+    }
+  }
+
+  convertDateFromAPI() {
+    if (this.form.get('initialDate').value) {
+      this.form.get('initialDate').setValue(moment(this.form.get('initialDate').value).toDate());
+    }
+    if (this.form.get('finalDate').value) {
+      this.form.get('finalDate').setValue(moment(this.form.get('finalDate').value).toDate());
+    }
+    if (this.form.get('expirationDate').value) {
+      this.form.get('expirationDate').setValue(moment(this.form.get('expirationDate').value).toDate());
+    }
+  }
+
+  private getFormGroup() {
+    return this.formBuilder.group({
       id: [''],
-      customerId: ['', [Validators.required]],
+      customer: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
       initialDate: [''],
       finalDate: [''],

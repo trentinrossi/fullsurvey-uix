@@ -4,7 +4,38 @@
   </p-header>
   <div class="ui-g">
     <div class="ui-g-12">
-      Assuntos
+      <p-table [value]="subjects" (onLazyLoad)="findByLazy($event)" [lazy]="true" [paginator]="true" [rowsPerPageOptions]="[5,20,50]" [rows]="5"
+        [totalRecords]="totalElements" #dt *ngIf="totalElements !== 0" dataKey="category">
+        <ng-template pTemplate="caption">
+          <div style="text-align: left">
+            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Pesquise pelo nome..." (input)="dt.filterGlobal($event.target.value, 'contains')"
+              style="width:auto">
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>{{ 'application.name' | translate }}</th>
+            <th width="150">
+              {{ 'application.actions' | translate }}
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+          <tr class="ui-widget-header">
+            <td colspan="3">
+              <a href="#" [pRowToggler]="rowData">
+                <i [ngClass]="expanded ? 'fa fa-fw fa-chevron-circle-down' : 'fa fa-fw fa-chevron-circle-right'"></i>
+                <span>{{ rowData.category }}</span>
+              </a>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="paginatorright">
+          <label for="">{{ 'application.total_found_records' | translate:{'totalElements': totalElements} }}</label>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </p-panel>

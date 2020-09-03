@@ -37,16 +37,18 @@
               {{ 'validation.max' | translate: {fieldName: 'survey.responseTime' | translate, max: responseTime.errors.max.max } }}</div>
           </div>
         </div>
+        <!-- Colocar o formControlName -->
         <div class="ui-g-12 ui-md-3 ui-lg-3">
           <label for="initialDate">{{ 'survey.initialDate' | translate }}</label>
-          <p-calendar formControlName="initialDate" name="initialDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="initialDate"
-            [locale]="pt" [dateFormat]="'dd/mm/yy'">
+          <p-calendar name="initialDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="initialDate" [locale]="pt"
+            [dateFormat]="'dd/mm/yy'">
           </p-calendar>
         </div>
+        <!-- Colocar o formControlName -->
         <div class="ui-g-12 ui-md-3 ui-lg-3">
           <label for="expirationDate">{{ 'survey.expirationDate' | translate }}</label>
-          <p-calendar formControlName="expirationDate" name="expirationDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="expirationDate"
-            [locale]="pt" [dateFormat]="'dd/mm/yy'" pTooltip="Após esta data não serão mais aceitas respostas">
+          <p-calendar name="expirationDate" showButtonBar="true" placeholder="DD/MM/AAAA" [showIcon]="true" id="expirationDate" [locale]="pt"
+            [dateFormat]="'dd/mm/yy'" pTooltip="Após esta data não serão mais aceitas respostas">
           </p-calendar>
         </div>
       </div>

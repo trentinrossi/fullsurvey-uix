@@ -89,9 +89,9 @@ export class RespondentFormComponent implements OnInit {
       this.title = this.translate.instant('respondent.edit');
       this.service.find(id).subscribe(respondent => {
         this.form.patchValue(respondent);
+        console.log(this.form);
         this.convertDateFromAPI();
         this.setRespondentTypeSelected(respondent.respondentType);
-        console.log(this.form);
       });
     } else {
       this.isNew = true;

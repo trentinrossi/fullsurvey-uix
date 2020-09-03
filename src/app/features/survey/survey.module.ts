@@ -26,6 +26,7 @@ import { SurveyQuestionsComponent } from './survey-questions/survey-questions.co
 import { SurveyRespondentsComponent } from './survey-respondents/survey-respondents.component';
 import { SurveyGetanswersComponent } from './survey-getanswers/survey-getanswers.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputSwitchModule,
     InputTextareaModule,
     CalendarModule,
-    TooltipModule
+    TooltipModule,
+    CardModule
   ]
 })
 export class SurveyModule { }
