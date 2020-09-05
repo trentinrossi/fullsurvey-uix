@@ -19,6 +19,10 @@ export class SubjectService {
     return this.http.get<any>(`${this.endpoint}?page=${page}&size=${linesPerPage}&globalFilter=${globalFilter}`);
   }
 
+  findAllBycategory(id: string): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/getSubjectsByCategory/${id}`);
+  }
+
   find(id: string): Observable<Subject> {
     return this.http.get<Subject>(`${this.endpoint}/${id}`);
   }

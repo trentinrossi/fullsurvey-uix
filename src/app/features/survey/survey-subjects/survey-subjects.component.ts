@@ -1,3 +1,5 @@
+import { CategoryService } from './../../category/category.service';
+import { Category } from './../../category/category.model';
 import { LazyLoadEvent } from 'primeng/api';
 import { Subject } from './../../subject/subject.model.';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,13 +16,15 @@ import { Component, OnInit } from '@angular/core';
 export class SurveySubjectsComponent implements OnInit {
 
   subjects: Subject[];
+  selecteds: Subject[];
+  categories: Category[];
   totalElements: number;
   loading = false;
   rowGroupMetadata: any;
 
   constructor(
-    private formBuilder: FormBuilder,
     private subjectService: SubjectService,
+    private categoryService: CategoryService,
     private route: ActivatedRoute,
     private translate: TranslateService
   ) { }
@@ -28,32 +32,25 @@ export class SurveySubjectsComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
-    // this.subjectService.findAll(0, 50, '').subscribe(subjects => {
-    //   this.subjects = subjects.content;
-    //   this.totalElements = subjects.content.lenght;
-    //   console.log(subjects);
-    // });
+    this.subjectService.findAll(0, 1000, '').subscribe(subjects => {
+      this.subjects = subjects.content;
+      this.totalElements = subjects.content.lenght;
+      console.log(subjects);
+    });
 
+    this.selecteds = [];
   }
 
-  findByLazy(event: LazyLoadEvent) {
-    this.loading = true;
-    const page = event.first / event.rows;
-    let filter = '';
-    event.globalFilter === null ? filter = '' : filter = event.globalFilter;
-
-    this.subjectService.findAll(page, event.rows, filter)
-      .subscribe(resp => {
-        this.subjects = resp.content;
-        console.log(this.subjects);
-        this.totalElements = resp.totalElements;
-        this.loading = false;
-      }, (error => {
-        this.loading = false;
-        // this.hasErrors = true;
-        // this.errorHandler.handleError(error);
-        // this.errorMessage = error.errorMessage;
-      }));
+  searchCategories() {
+    this.categoryService.findAll(0, 1000, '').subscribe(data => {
+      this.categories = data.content;
+    });
   }
 
+  categorySelected(event) {
+    this.subjectService.findAllBycategory(event.id).subscribe(subjects => {
+      this.subjects = subjects.content;
+      this.totalElements = subjects.content.lenght;
+    });
+  }
 }

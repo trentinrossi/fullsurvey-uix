@@ -1,3 +1,4 @@
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { PanelModule } from 'primeng/panel';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -27,6 +28,7 @@ import { SurveyRespondentsComponent } from './survey-respondents/survey-responde
 import { SurveyGetanswersComponent } from './survey-getanswers/survey-getanswers.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
+import { PickListModule } from 'primeng/picklist';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { CardModule } from 'primeng/card';
     InputTextareaModule,
     CalendarModule,
     TooltipModule,
-    CardModule
+    CardModule,
+    PickListModule,
+    AutoCompleteModule
   ]
 })
 export class SurveyModule { }
