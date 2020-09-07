@@ -1,3 +1,4 @@
+import { SurveySubjects } from './survey-subjects.model';
 import { CategoryService } from './../../category/category.service';
 import { Category } from './../../category/category.model';
 import { LazyLoadEvent } from 'primeng/api';
@@ -5,8 +6,8 @@ import { Subject } from './../../subject/subject.model.';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectService } from './../../subject/subject.service';
-import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { SurveySubjectsService } from './survey-subjects.service';
 
 @Component({
   selector: 'app-survey-subjects',
@@ -15,30 +16,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveySubjectsComponent implements OnInit {
 
-  subjects: Subject[];
+  avaiableSubjects: Subject[];
   selecteds: Subject[];
   categories: Category[];
+  surveySubject: SurveySubjects[];
   totalElements: number;
   loading = false;
   rowGroupMetadata: any;
+  id: string;
 
   constructor(
     private subjectService: SubjectService,
     private categoryService: CategoryService,
+    private surveySubjectsService: SurveySubjectsService,
     private route: ActivatedRoute,
     private translate: TranslateService
   ) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
 
-    this.subjectService.findAll(0, 1000, '').subscribe(subjects => {
-      this.subjects = subjects.content;
+    this.surveySubjectsService.findAvaiableSubjectsBySurveyId(this.id).subscribe(subjects => {
+      this.avaiableSubjects = subjects.content;
       this.totalElements = subjects.content.lenght;
-      console.log(subjects);
     });
 
-    this.selecteds = [];
+    this.surveySubjectsService.findgetSurveySubjectsBySurveyId(this.id).subscribe(subjects => {
+      this.selecteds = subjects.content;
+    });
+  }
+
+  onMoveToTarget(event) {
+    console.log(event);
+
+    this.surveySubject = [];
+    event.items.forEach(item => {
+      console.log(item);
+      this.surveySubject.push({ surveyId: this.id, subjects: item });
+    });
+
+    this.surveySubjectsService.addSurveySubject(this.surveySubject).subscribe(subjects => {
+      console.log(subjects);
+    });
   }
 
   searchCategories() {
@@ -49,7 +68,7 @@ export class SurveySubjectsComponent implements OnInit {
 
   categorySelected(event) {
     this.subjectService.findAllBycategory(event.id).subscribe(subjects => {
-      this.subjects = subjects.content;
+      this.avaiableSubjects = subjects.content;
       this.totalElements = subjects.content.lenght;
     });
   }

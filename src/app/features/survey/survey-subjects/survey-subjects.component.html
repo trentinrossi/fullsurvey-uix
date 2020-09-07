@@ -11,9 +11,10 @@
           (onSelect)="categorySelected($event)" [dropdown]="true" [minLength]="3" [placeholder]="'Filtrar por categoria'"></p-autoComplete>
       </div>
 
-      <p-pickList [source]="subjects" [target]="selecteds" [responsive]="true" filterBy="name" dragdrop="true" sourceHeader="Disponíveis"
+      <p-pickList [source]="avaiableSubjects" [target]="selecteds" [responsive]="true" filterBy="name" dragdrop="true" sourceHeader="Disponíveis"
         targetHeader="Selecionados" sourceFilterPlaceholder="Pesquise pelo nome..." targetFilterPlaceholder="Pesquise pelo nome..."
-        [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [showSourceControls]="false" [showTargetControls]="false">
+        [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [showSourceControls]="false" [showTargetControls]="false"
+        (onMoveToTarget)="onMoveToTarget($event)">
         <ng-template let-subject pTemplate="item">
           <div class="ui-helper-clearfix">{{subject.name}}</div>
         </ng-template>
