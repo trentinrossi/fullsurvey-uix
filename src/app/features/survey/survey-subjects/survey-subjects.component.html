@@ -14,7 +14,7 @@
       <p-pickList [source]="avaiableSubjects" [target]="selecteds" [responsive]="true" filterBy="name" dragdrop="true" sourceHeader="Disponíveis"
         targetHeader="Selecionados" sourceFilterPlaceholder="Pesquise pelo nome..." targetFilterPlaceholder="Pesquise pelo nome..."
         [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" [showSourceControls]="false" [showTargetControls]="false"
-        (onMoveToTarget)="onMoveToTarget($event)">
+        (onMoveToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSoure($event)">
         <ng-template let-subject pTemplate="item">
           <div class="ui-helper-clearfix">{{subject.name}}</div>
         </ng-template>

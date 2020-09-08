@@ -19,7 +19,7 @@ export class SurveySubjectsComponent implements OnInit {
   avaiableSubjects: Subject[];
   selecteds: Subject[];
   categories: Category[];
-  surveySubject: SurveySubjects[];
+  surveySubject: SurveySubjects;
   totalElements: number;
   loading = false;
   rowGroupMetadata: any;
@@ -41,21 +41,29 @@ export class SurveySubjectsComponent implements OnInit {
       this.totalElements = subjects.content.lenght;
     });
 
-    this.surveySubjectsService.findgetSurveySubjectsBySurveyId(this.id).subscribe(subjects => {
+    this.surveySubjectsService.findSurveySubjectsBySurveyId(this.id).subscribe(subjects => {
       this.selecteds = subjects.content;
     });
   }
 
   onMoveToTarget(event) {
-    console.log(event);
-
-    this.surveySubject = [];
+    this.surveySubject = { surveyId: this.id, subjects: [] };
     event.items.forEach(item => {
-      console.log(item);
-      this.surveySubject.push({ surveyId: this.id, subjects: item });
+      this.surveySubject.subjects.push(item.id);
     });
 
     this.surveySubjectsService.addSurveySubject(this.surveySubject).subscribe(subjects => {
+      console.log(subjects);
+    });
+  }
+
+  onMoveToSoure(event) {
+    this.surveySubject = { surveyId: this.id, subjects: [] };
+    event.items.forEach(item => {
+      this.surveySubject.subjects.push(item.id);
+    });
+
+    this.surveySubjectsService.deleteSurveySubject(this.surveySubject).subscribe(subjects => {
       console.log(subjects);
     });
   }
@@ -67,7 +75,9 @@ export class SurveySubjectsComponent implements OnInit {
   }
 
   categorySelected(event) {
-    this.subjectService.findAllBycategory(event.id).subscribe(subjects => {
+    console.log(event);
+
+    this.surveySubjectsService.findSurveySubjectsBySurveyIdAndCategoryId(this.id, event.id).subscribe(subjects => {
       this.avaiableSubjects = subjects.content;
       this.totalElements = subjects.content.lenght;
     });
